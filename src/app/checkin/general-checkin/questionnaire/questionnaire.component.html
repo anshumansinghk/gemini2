@@ -1,0 +1,123 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+	<div class="container inner-container">
+		<div class="row">
+			<div class="col-12">
+				<div class="main-area scroll-view" appTabTracker>
+					<div>
+						<section *ngIf="questionnaire">
+							<div class="checkintitle">
+								<h5 class="title text-center mb-0" [innerHTML]="generalCheckinTitle"></h5>
+							</div>
+							<p class="filter-title" *ngIf="questionnaire?.medicine_name">For Medication name: {{questionnaire?.medicine_name}}</p>
+							<p class="filter-title" [innerHTML]="questionnaire?.questionInstruction"></p>
+							<p class="filter-title" [innerHTML]="questionnaire?.questionText"></p>
+							<p class="filter-title" [innerHTML]="questionnaire?.questionContext"></p>
+							<div>
+								<form [formGroup]="questionForm" role="form" novalidate>
+									<div class="my-4" [ngSwitch]="questionnaire?.responseFormat">
+
+										<div *ngSwitchCase="'likert'">
+									
+											<div class="checkin-grid">
+												<div class="text-flex questionnaire-radio " *ngFor="let option of questionnaire?.selectionOptions;">
+													<div class="radio-field">
+														<input type="radio" name="question" formControlName="question" [value]="option?.value"
+															[id]="option?.value" />
+														<label aria-label="hidden"></label>
+													</div>
+													<label class="filter-title mb-0" [for]="option?.value" [innerHTML]="option?.label">qwe</label>
+												</div>
+											</div>
+											<div [ss-form-errors]="formErrors" ss-form-error-name="question"
+												[ss-form-element]="question"></div>
+										</div>
+										<div *ngSwitchCase="'text'">
+											<textarea name="question" formControlName="question"
+												class="form-control questionnaire-textarea" rows="4"
+												cols="50"></textarea>
+											<div [ss-form-errors]="formErrors" ss-form-error-name="question"
+												[ss-form-element]="question"></div>
+										</div>
+
+										<div *ngSwitchCase="'rating'">
+											<select *ngIf="!isPainMedicationQuestion" name="question" class="select-input"
+												formControlName="question" class="form-select"
+												aria-label="Default select">
+												<option [ngValue]="null" [disabled]="true">{{ "select" | translate}}</option>
+												<option value={{questionnaire.minDigit}}>
+													{{questionnaire.minDigit}}:{{questionnaire.minMeaning}}</option>
+
+												<option
+													*ngFor="let digit of getDigits(questionnaire.minDigit, questionnaire.maxDigit)"
+													[value]="digit">
+													{{ digit }}
+												</option>
+
+
+												<option value={{questionnaire.maxDigit}}>
+													{{questionnaire.maxDigit}}:{{questionnaire.maxMeaning}}</option>
+											</select>
+
+											<select *ngIf="isPainMedicationQuestion" name="question"
+												formControlName="question" class="form-select"
+												aria-label="Default select" value="null">
+												<option [ngValue]="null" [disabled]="true">{{ "select" | translate}}</option>
+												<option *ngFor="let option of questionnaire?.selectionOptions;"
+													[value]="option?.value">
+													{{option?.label}}
+												</option>
+											</select>
+											<div [ss-form-errors]="formErrors" ss-form-error-name="question"
+												[ss-form-element]="question"></div>
+										</div>
+
+										<div *ngSwitchCase="'checkbox'">
+											<div *ngFor="let option of questionnaire?.selectionOptions;">
+												<div class="questionnaire-radio my-2 cust-checkbox">
+													<div class="new">
+														<div class="form-group">
+															<input class="form-check-input mt-0" formControlName="question" type="checkbox"
+																name="question" [id]="option?.value"
+																(click)="checkOptionPain(option?.value, $event,option?.label)" >
+															<label class="form-check-label filter-title customcheck"
+																[for]="option?.value" [innerHTML]="option?.label">
+															</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="questionnaire-radio my-2 cust-checkbox" *ngIf="(textInput[option?.value]!=undefined)">
+													<div class="new">
+														<div class="form-group">
+															<textarea name="otherQuestion" formControlName="otherQuestion" class="form-control questionnaire-textarea" rows="4" cols="50" (input)="otherText(option?.value,$event)" value="{{textInput[option?.value]}}" required>{{textInput[option?.value]}}</textarea>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+											<div [ss-form-errors]="formErrors" ss-form-error-name="question" [ss-form-element]="question"></div>
+											<div [ss-form-errors]="formErrors" ss-form-error-name="otherQuestion" [ss-form-element]="otherQuestion"></div>
+										</div>
+
+
+										<div *ngSwitchDefault>No Data</div>
+									</div>
+
+									<div class="form-actions d-flex justify-content-center">
+										<!-- [disabled]="!questionForm.valid" [ngClass]="{'button-disabled':!questionForm.valid}" -->
+										<button type="submit" class="btn btn-primary"
+											(click)="isPainMedicationQuestion ? nextPainQuestion(questionForm.value):nextQuestion(questionForm.value)">
+											{{"submit" | translate }}
+										</button>
+									</div>
+								</form>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>

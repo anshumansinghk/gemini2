@@ -1,0 +1,164 @@
+.container.inner-container {
+  max-width: 991px;
+}
+
+.main-area ul.nav.nav-tabs {
+  display: flex;
+  width: 65%;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex-direction: row !important;
+  align-items: flex-start;
+  border: 1px solid green;
+  border-radius: 26px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  @media (max-width: 991px) {
+    width: 100%;
+  }
+}
+
+.main-area {
+  display: block;
+  padding: 20px;
+
+  @media (max-width: 991px) {
+    padding: 16px 0;
+  }
+}
+
+.main-area ul.nav.nav-tabs li.nav-item {
+  width: 50%;
+}
+
+.main-area ul.nav.nav-tabs li.nav-item a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0 !important;
+  border-radius: 0px;
+}
+
+a.nav-link {
+  color: #357b40 !important;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 6px;
+}
+
+a.nav-link.active {
+  background: #357b40 !important;
+  color: #fff !important;
+}
+
+// .tab-content > .active {
+//   display: flex !important;
+//   gap: 3px;
+// }
+
+.v-line {
+  width: 2px;
+  height: calc(100% + 10px);
+  color: #000;
+  background: #ebebeb;
+  
+}
+.class-parent>.current-tab:last-child{
+  .v-line{
+  height: 100%;
+ }
+}
+
+.dot {
+ 
+  background-color: #357b40;
+  width: 11px;
+  height: 11px;
+  border-radius: 100px;
+  position: absolute;
+  left: 1px;
+
+}
+
+.tab-content > .active h1,
+.tab-content > .active p {
+  text-align: center;
+  margin: 0;
+}
+
+.tab-content > .active h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #263e72;
+}
+
+.tab-content > .active p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-content > .active p span {
+  font-weight: 700;
+}
+
+.color-primary {
+  color: #263e72 !important;
+}
+
+.to-do {
+  font-weight: 700;
+  color: #263e72;
+}
+
+.to-do-card {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.card-box {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+}
+.card-box.disabled {
+   opacity: 0.5;
+  background-color: #ebebea;
+ }
+.class-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-style {
+  background-color: #ceecff;
+}
+
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.current-tab {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  position: relative;
+  padding-left: 5px;
+
+}
+
+.class-parent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

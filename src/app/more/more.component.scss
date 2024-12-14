@@ -1,0 +1,86 @@
+// Dashboard 
+.container.inner-container {
+    max-width: 991px;
+}
+.main-area {
+    display: block;
+    padding: 20px;
+
+    @media (max-width:991px) {
+        padding: 16px 0;
+    }
+}
+
+// .title-detail-setting {
+//     font-size: 20px;
+//     font-weight: 700;
+//     color: #263e72;
+// }
+
+.checkin-center {
+    padding-bottom: 15px;
+}
+
+.card-heading {
+    padding: 25px 15px;
+}
+
+.title {
+    font-weight: 700;
+    color: #263e72;
+}
+
+.morecard-box {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 45px;
+
+}
+
+.class-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.checkin-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #efefef;
+        border-radius: 10px;
+
+    }
+
+}
+
+.line {
+    border-top: 1px solid #e7e6e6;
+}
+
+.host {
+    color: #263e72;
+    font-weight: 600 !important;
+}
+
+.details {
+    color: #7c7e81;
+    font-size: 12px;
+}
+
+.details-title {
+    color: #67696b;
+    font-size: 14px;
+}
+
+.morecard-box {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 45px;
+}

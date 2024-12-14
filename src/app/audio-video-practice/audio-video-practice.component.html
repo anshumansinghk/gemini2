@@ -1,0 +1,39 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+    <div class="container inner-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-area">
+                    <div class="audio-center">
+                        <div *ngIf="type == 'audio'">
+                                    <h4 class="title">Your Audio Practices</h4>
+                                </div>
+                                <div *ngIf="type == 'video'">
+                                    <h5 class="title"> Your Video Practices</h5>
+                                </div>
+                        </div>
+					<div class="scroll-view">
+            			<div class="box-grid">
+                            <div class="card-box" *ngFor="let practice of classPractice;" (click)="openPractice(practice.id)" >
+                    	       <div>
+                        	       <div class="checkin-flex">
+                                        <div >
+                                       <div >
+                                        <h6 class="title"> {{ practice.title }}</h6>
+                                        <p class="mb-0 details">{{ practice.completed_at != "" ? 'Completed '+(practice.completed_at | date: 'MMM dd, y')+' ' : '' }} {{ "(" + practice.target_completed + "/" + practice.target_number + ")" }}</p>
+                                       </div>
+                                        </div>
+                                        <div>
+                                        <i class="gm gm-chevron-thin"></i>
+    								    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

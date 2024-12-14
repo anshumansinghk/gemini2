@@ -1,0 +1,90 @@
+
+<section class="wrapper">
+    <div class="container inner-container">
+       <div class="row">
+          <div class="col-12">
+             <div class="main-area">
+                <div class="scroll-view">
+                   <div>
+                    <div class="box-grid">
+                       <div class="text-center box-grid">
+                        <div> <img [src]="userDetails?.profile_picture" class="companion-user"> </div>
+                        <h5 class="title mb-0"> Welcome,{{ userDetails?.first_name }} </h5>
+                        <h6 class="videeo-title mb-0"> Here is a list of resources for you to review </h6>
+                       </div>
+                       <div class="card-box">
+                        <div *ngIf="resources.length === 0" style="display: flex; justify-content: center; align-items: center; height: 100%;"> 
+                            No Resources Found 
+                        </div>
+                        <div class="audio-video-section" *ngIf="resources.length > 0">
+                               <div class="box-grid">
+                                 
+                                   <div  *ngFor="let resource of resources; let i=index;">
+                                       <div  *ngIf="resource.type == 'AUDIO'"   class="audio-main">
+                                       <ss-vg-audio-video-player
+                                           *ngIf="resource.url"
+                                           [source]="resource.url"
+                                           [autoplay]="false"
+                                           [loop]="false"
+                                           [scrubBar]="false"
+                                           [audioTitle]="resource.title"
+                                           class="scrubBar"
+                                           [fileIndex]="i"
+                                           [resourceId]="resource.resource_id"
+                                           [fileType]="'AUDIO'"
+                                       ></ss-vg-audio-video-player>
+                                       </div>
+                                       <div class="video-card" *ngIf="resource.type == 'VIDEO' && !resource.isYouTubeUrl">
+                                           <ss-vg-audio-video-player
+                                           *ngIf="resource.url"
+                                           [source]="resource.url"
+                                           [autoplay]="false"
+                                           [loop]="false"
+                                           [scrubBar]="true"
+                                           [fileIndex]="i"
+                                           [resourceId]="resource.resource_id"
+                                           [fileType]="'VIDEO'"
+                                           ></ss-vg-audio-video-player>
+                                           <div class="pt-3">
+                                               <p class="title-video text-start mb-0 px-3">{{ resource.title }}</p>
+                                           </div>
+                                       </div>
+                                       <div class="video-card" *ngIf="resource.isYouTubeUrl">
+                                           <ss-vg-audio-video-player
+                                           [videoId]="resource.ytVideoId"
+                                           [playerVars]="playerVars"
+                                           [resourceId]="resource.resource_id"
+                                           [fileIndex]="i"
+                                           [fileType]="'YOUTUBE'"
+                                           ></ss-vg-audio-video-player>
+                                           <div class="pt-3">
+                                           <p class="title-video mb-0 px-3">{{ resource.title }}</p>
+                                           </div>
+                                       </div>
+                                       <div class="card-box flex-link" *ngIf="resource.type == 'WEBSITE'" (click)="openWeb(resource.url)">
+                                           <div>
+                                           <p class="title-video mb-0">{{ resource.title }}</p>
+                                           </div>
+                                           <div>
+                                            <img src="assets/images/icons/link.png" class="link-icon"/>
+                                           </div>
+                                       </div>
+                                       <div class="card-box" *ngIf="resource.type == 'ARTICLE'" (click)="openWeb(resource.url)">
+                                           <div>
+                                           <p class="title-video mb-0">{{ resource.title }}</p>
+                                           </div>
+                                       </div>
+                                   </div>
+                             </div>
+                        </div>
+                     </div>
+                      </div>
+                      
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </section>
+ 

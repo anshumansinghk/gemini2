@@ -1,0 +1,26 @@
+
+<div class="modal-backdrop"></div>
+<div class="modal fade in" tabindex="-1" role="dialog">
+    <div class="modal-dialog" [class.w-1200]="shortFrame1200" [class.w-680]="shortFrame680"
+        [class.w-1000]="shortFrame1000" [class.w-800]="shortFrame800" [class.w-750]="shortFrame750"
+        [class.w-600]="shortFrame600" [class.full-frame]="fullFrame" role="document">
+        <div class="modal-content">
+            <ss-loading [show]="loading"></ss-loading>
+            <div class="modal-header">
+                <div class="modal-title">
+                    <ng-content select="[modal-header]"></ng-content>
+                    <i *ngIf="showClose" class="lf lf-cancel c-d-gray-menu-cancle"
+                    style="color: gray" (click)="closeModal()" title="{{ 'close'  }}"></i> 
+                </div>
+               
+            </div>
+            <div class="modal-body" [class.mid-calc]="needScrollbar" [class.mid-calc-no-overflow]="!needScrollbar"
+                id="modal">
+                <ng-content select="[modal-body]"></ng-content>
+            </div>
+            <div class="modal-footer" [class.se-hidden]="fullFrame">
+                <ng-content select="[modal-footer]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

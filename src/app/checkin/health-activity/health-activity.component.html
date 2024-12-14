@@ -1,0 +1,188 @@
+<section class="wrapper health-activity">
+    <div class="container inner-container" *ngIf="!thankYouPage">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-area">
+                        <div class="section-center">
+                            <!-- Content for other types -->
+                           
+                             <div class="healthselection-section" *ngIf="type == 'start'">
+                                <div>
+                                    <img src="/assets/images/health-list.png" />
+                                </div>
+                                <h3 class="title">{{ mainTitle }}</h3>
+                                <p class="text-center mb-0">{{ mainSubTitle }}</p>
+                                <div class="text-center moodinfo">
+                                    <div class="healthselection-section pt-2">
+                                        <button class="btn btn-primary" (click)="startCheckIn()">START CHECK-IN</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <!-- Content for 'mental' and 'physical' types -->
+                            <div class="healthselection-section"
+                                *ngIf="type === 'mental' || type === 'physical'">
+                                <h3 class="title">{{ mainTitle }}</h3>
+                                <p class="text-center">{{ mainSubTitle }}</p>
+                                <img class="showmood" [src]="currentMoodImage" />
+                                <div class="text-center moodinfo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#263e72" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+                                      </svg>
+                                      
+                                            <span class="mx-2 moodinfotitle">{{ currentMoodText }}</span>
+                                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#263e72" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                                              </svg>
+                                              
+                                </div>
+                                <div class="emoji-flex">
+                                    <div >
+                                        <img src="assets/images/sad_face.png" />
+                                    </div>
+                                    <div >
+                                        <input class="w-100 healthrange" type="range" [name]="type + '-range'"
+                                            [id]="type + '-range'" [min]="1" [max]="10" [ngModel]="getRangeValue(type)"
+                                            (ngModelChange)="setRangeValue(type, $event)" (input)="updateMoodImage()" />
+                                    </div>
+                                    <div >
+                                        <img src="assets/images/happy.png" />
+                                    </div>
+                                </div>
+                                <div class="justify-content-center m-3">
+                                    <button class="btn btn-primary" (click)="submitCheckinForm()">Submit</button>
+                                </div>
+                            </div>
+
+                            <!-- Content for other types -->
+                            <div class="healthselection-section" *ngIf="type == 'medications'">
+                                <h3 class="title">{{ mainTitle }}</h3>
+                                <p class="text-center mb-0">{{ mainSubTitle }}</p>
+                                <div class="text-center moodinfo">
+                                    <div class="healthselection-section">
+                                        <button class="btn btn-primary" (click)="setSupplementTaken(true)">Yes</button>
+                                        <button class="btn btn-secondary" (click)="setSupplementTaken(false)">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                          
+
+                            <!-- Content for other types -->
+                            <div class="health-section" *ngIf="type == 'bloodpressure'">
+                                <h3 class="title text-center">{{ mainTitle }}</h3>
+                                <div class="section-align align-items-center blood-pressure-inputs">
+                                    <div class="field-input mt-3">
+                                        <div class="float-wrap">
+                                            <input type="number" class="form-control" id="systolic"
+                                                placeholder="Enter systolic #" required min="0" step="any"
+                                                title="Please enter a positive number"
+                                                [(ngModel)]="systolicValue">
+                                            <span for="systolic" class="label-title">Enter systolic #</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-4 text-center bp-separator">
+                                        /
+                                    </div>
+                                    <div class="field-input mt-3">
+                                        <div class="float-wrap">
+                                            <input type="number" class="form-control moveplaceholder-input" id="diastolic"
+                                                placeholder="Enter diastolic #" required min="0" step="any"
+                                                title="Please enter a positive number"
+                                                [(ngModel)]="diastolicValue">
+                                            <span for="diastolic" class="label-title">Enter diastolic #</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <button class="btn btn-primary col-3" (click)="submitCheckinForm()"
+                                    [disabled]="!systolicValue || !diastolicValue || systolicValue <= 0 || diastolicValue <= 0">Submit</button>
+                                </div>
+                            </div>
+
+                            <!-- Content for other types -->
+                            <div class="checkin-section" *ngIf="type == 'pulse'">
+                                
+                                <h3 class="title text-center">{{ mainTitle }}</h3>
+                                <div class="section-align blood-pressure-inputs">
+                                    <div class="field-input mt-3">
+                                        <div class="float-wrap">
+                                            <input type="number" class="form-control moveplaceholder-input" id="bpm"
+                                                placeholder="Enter bpm" required min="0" step="any"
+                                                title="Please enter a positive number"
+                                                [(ngModel)]="bpmValue">
+                                            <span for="bpm" class="label-title">Enter bpm</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" (click)="submitCheckinForm()"
+                                    [disabled]="!bpmValue || bpmValue <= 0">Submit</button>
+                                </div>
+                            </div>
+
+                            <!-- Content for other types -->
+                           
+                            <div class="w-100 checkin-section" *ngIf="type == 'weight'">
+                                
+                                <h3 class="title text-center">{{ mainTitle }}</h3>
+                                
+                                <div>
+                                    <div class="d-flex gap-2 align-items-center blood-pressure-inputs">
+                                        <div class="field-input mt-3">
+                                            <div class="float-wrap">
+                                                <input type="number" class="form-control moveplaceholder-input" id="weight" placeholder="Enter weight"
+                                                    required min="0" step="any" title="Please enter a positive number" [(ngModel)]="weightValue">
+                                                <span for="weight" class="label-title">Enter weight</span>
+                                            </div>
+                                        </div>
+                                        <div class="field-input mt-3">
+                                           <div class="select-icon">
+                                            <select class="form-select form-control moveplaceholder-input" id="unit" [(ngModel)]="weighunitValue" required>
+                                                <option value="lbs" selected>lbs</option>
+                                                <option value="kg">kg</option>
+                                            </select>
+                                           
+                                           </div>
+                                              
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <button class="btn btn-primary col-3" (click)="submitCheckinForm()"
+                                        [disabled]="!weightValue || weightValue <= 0">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div *ngIf="thankYouPage">
+        <img src="/assets/images/icons/fav-like/fav-like.png" alt="">
+        <div>Thanks for completing your first check in!</div>
+        <button routerLink="/dashboard">GO TO DASHBOARD</button>
+    </div> -->
+    <!-- <div class="main-area thanks-container" *ngIf="thankYouPage" > -->
+    <div class="main-area thanks-container" *ngIf="type == 'thanks'" >
+        <div class="row">
+          <div class="col-12">
+            <div class="thankyou-section">
+                <div class="thanks-img">
+                  <img src="/assets/images/icons/fav-like/fav-like.png" />
+                </div>
+                <div class="text-center">
+                  <h4 class="title">Thank you for your message</h4>
+                  <h6 class="sub-title">Someone will get back to your query shortly,</h6>
+                </div>
+                <div>
+                  <button class="btn btn-primary"  routerLink="/dashboard">GO TO DASHBOARD</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+

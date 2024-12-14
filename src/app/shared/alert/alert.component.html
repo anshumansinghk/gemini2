@@ -1,0 +1,15 @@
+<div class="alert " *ngIf="alertMessage != ''" id="notifyAlertSuccess" [ngClass]="alertClass">
+    <span *ngIf="alertSpinner" style="padding-right:10px;">
+        <i class="spinner fas fa-spinner fa-spin fa-3x fa-fw " [ngClass]="alertClass" style="font-size:24px;"></i>
+    </span> 
+  
+    <span *ngIf="hasArray">
+        <ng-template ngFor let-cap [ngForOf]="alertMessage" let-i="index" >
+            {{cap.errorMessage}}<br>
+        </ng-template>
+    </span>
+    <span *ngIf="!hasArray">
+        {{alertMessage}}
+    </span>
+    <span class="close" (click)="alertMessage = ''">&times;  </span>
+</div>

@@ -1,0 +1,30 @@
+.audio {
+    height: 50px;
+}
+
+.audio-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  width: 100%;
+  @media (max-width: 768px) {
+      font-size: 12px;
+      // width: fit-content !important;
+      padding: 0px 10px ;
+    }
+}
+vg-player {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+  
+    video {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .sep-time{
+    line-height: 50px;
+    color: white;
+  }

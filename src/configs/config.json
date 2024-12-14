@@ -1,0 +1,29 @@
+{
+    "apiRoot": "http://localhost/gemini-2-ci4/admin/Api/",
+    "tokenRefreshRate": 1,
+    "sessionTimeOut": 30,
+    "domainReference": "Gemini",
+    "messagePrefix": "Gemini",
+    "isDebugMode": true,
+    "site":{
+        "site_name": "GEMINI",
+        "site_logo":"assets/images/logo-icon/logo.svg",
+        "welcome_message": "Where you can take control of you health with the support of your peers and health care provider.",
+        "sign_in_logo":"assets/images/welcome.svg"
+    },
+    "access":{
+        "features":{
+            "enable_check_in_button": true,
+            "enable_community":true,
+            "enable_companion_site":true,
+            "enable_health_check_in":true,
+            "enable_practice_log":true,
+            "force_general_checkin":true,
+            "is_companion":true,
+            "is_course_expired":true,
+            "substitute_class":"class"
+        },
+        "total_notification":0
+    }
+    
+}

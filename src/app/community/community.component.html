@@ -1,0 +1,157 @@
+<ss-loading [show]="loading"></ss-loading>
+<div class="tab-pane" id="simple-tabpanel-2" role="tabpanel">
+    <div >
+        <div class="main-area-1">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="simple-tab-5" data-bs-toggle="tab" href="#simple-tabpanel-5"
+                        role="tab" aria-controls="simple-tabpanel-5" aria-selected="true">Discussion</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="simple-tab-6" data-bs-toggle="tab" href="#simple-tabpanel-6" role="tab"
+                        aria-controls="simple-tabpanel-6" aria-selected="false">Disclaimer</a>
+                </li>
+            </ul>
+
+            <div class="scroll-view">
+                <div class="tab-content" id="tab-content">
+                   
+                    <div class="tab-pane active" id="simple-tabpanel-5" role="tabpanel" aria-labelledby="simple-tab-5"
+                       >
+                     <div class="space-bottom">
+                      <div class="box-grid">
+                        <div class="checkin-center">
+                            <h1 class="title-detail-setting pb-0">Discussion topics</h1>
+                        </div>
+                           <div  *ngFor="let item of discussionTopicsData">
+                            <div class="box-grid">
+                                <div  (click)="PostTopicPage(item.id,item.title)">
+    
+                                    <div class="card-box-2 ">
+                                        <div class="class-title">
+                                            <div class="comm-title">
+                                                <span> <img src="assets/images/logo.png" class="logo-img"></span>
+                                                <h6 class="cum-heading">{{ item.title }}</h6>
+                                            </div>
+                                            <div>
+                                                <h6 class="post">{{item.total_posts}} + Post</h6>
+                                            </div>
+                                        </div>
+                                        <div class="details">
+                                            <div class="card-details">{{item.instruction}}
+                                                <div *ngIf="item.last_post">
+                                                    <h6 class="post-time pt-1">last post by {{item.last_post.created_at}} by      
+                                                       <span class="name">{{ item.last_post.first_name}}
+                                                            {{item.last_post.last_name}}</span>
+                                                    </h6>
+    
+                                                </div>
+                                            </div>
+                                            <img src="assets/images/icons/chevron-thin/chevron-thin.png"
+                                                class="che-icon">
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="tab-pane" id="simple-tabpanel-6" role="tabpanel" aria-labelledby="simple-tab-6">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="space-bottom">
+                                    <div class="card-box-1">
+                                        <div class="class-title">
+                                            <div class="comm-title">
+                                                <h6 class="cummunity-heading">For medical emergencies, call 911.</h6>
+                                            </div>
+                                        </div>
+                                        <div class="pt-2">
+                                            <h6 class="sub-title py-2">Community Discussion
+                                                Guidelines:</h6>
+                                            <div class="community-details">
+                                                By participating in the
+                                                Community Discussion area, you agree to follow
+                                                these guidelines and contribute to a positive
+                                                and constructive community environment. Thank
+                                                you for your cooperation.
+                                                <ul>
+                                                    <li>Respectful Dialogue: This space is
+                                                        intended
+                                                        for constructive and respectful
+                                                        dialogue.
+                                                        Please refrain from personal attacks,
+                                                        offensive language, or any form of
+                                                        discrimination. </li>
+                                                    <li> Opinions Are Personal: Opinions shared
+                                                        in this discussion belong solely to the
+                                                        individuals expressing them and do not
+                                                        necessarily reflect the views of the
+                                                        community as a whole or its moderators.
+                                                    </li>
+                                                    <li>Accuracy of Information: While
+                                                        participants are encouraged to share
+                                                        their knowledge and experiences, it's
+                                                        essential to verify facts and provide
+                                                        sources when possible. Misinformation or
+                                                        unsupported claims may be subject to
+                                                        removal</li>
+                                                    <li>Privacy and Confidentiality: Avoid
+                                                        sharing personal or sensitive
+                                                        information about yourself or others.
+                                                        Respect the privacy of fellow community
+                                                        members.
+                                                    </li>
+                                                    <li>Moderation: Moderators reserve the right
+                                                        to remove content that violates these
+                                                        guidelines or disrupts the community's
+                                                        integrity. Users who repeatedly
+                                                        disregard the rules may face
+                                                        restrictions or removal from the
+                                                        community.</li>
+
+                                                </ul>
+                                                <h6 class="sub-title"> Disclaimer:</h6>
+                                               <div>
+                                                The views and opinions expressed in this
+                                                community discussion post are those of the
+                                                authors and do not necessarily reflect the
+                                                official policy or position of GEMINI. Any post
+                                                content provided by authors are of their
+                                                opinion, and are not intended to malign any
+                                                religion, ethnic group, club, organization,
+                                                company, individual or anyone or anything.
+                                               </div>
+                                               
+
+                                                <div>GEMINI is not responsible for the accuracy of
+                                                    any of the information supplied by the authors
+                                                    of the discussion post. The community discussion
+                                                    is meant for productive and respectful
+                                                    exchanges. GEMINI reserves the right to remove
+                                                    any content deemed inappropriate, offensive, or
+                                                    in violation of our community
+                                                    guidelines.</div>
+
+                                               <div> Please note that by participating in the
+                                                community discussions, you agree to abide by our
+                                                terms and conditions and community guidelines.
+                                                If you have any concerns about the content of a
+                                                post, please contact us directly. This
+                                                disclaimer is subject to change at any time
+                                                without notifications.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

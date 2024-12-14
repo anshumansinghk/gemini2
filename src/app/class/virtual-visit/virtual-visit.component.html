@@ -1,0 +1,43 @@
+<div class="tab-content visit-card" id="myTabContent">
+    <div
+    class="tab-pane fade show active"
+    id="home"
+    role="tabpanel"
+    aria-labelledby="home-tab">
+       <div class="scroll-view">
+        <div class="box-grid" >
+            <div *ngFor="let vstKey of visits | key" class="box-grid">
+            <div class="card-box visit-block" *ngFor="let visitItem of visits[vstKey]">
+                <div class="visit-flex">
+                    <div>
+                        <img src="assets/images/group-visit.png"
+                                    id="receiptImg">
+                    </div>
+                    <div>
+                        <span class="text-title">{{'virtualVisit.visitTitle' | translate}}</span>
+                                    
+                        <div > 
+                            <span class="text-title virtual-title" [ngClass]="{'coming-class':vstKey=='upcoming_visits','complete-class': vstKey == 'completed_visits', 'today-class': vstKey == 'today_visits'}">{{ (vstKey == 'upcoming_visits'?'virtualVisit.upcomingVisit': (vstKey == 'completed_visits'?'virtualVisit.completedVisit':'today visit') ) | translate}}</span>
+                        </div>
+                                    
+                        <h6 class="to-do">{{visitItem.class_title}}-{{visitItem.group_name}}</h6>
+                        <div class="date-sec">
+                            <p><span>Date : </span>{{visitItem.visit_date | date:"yyyy-MM- d"}}</p>
+                            <p><span>Time : </span>{{ (visitItem.visit_date+' '+visitItem.visit_time) |  date:"hh:mm a" }} {{visitItem.timezone}}</p>
+                            <p ><span class="host">Host(s) : </span>{{visitItem.leaders || 'N/A'}}</p>
+                            <p><span>Participants : </span>{{visitItem.total_participants || 'N/A'}}</p>
+                            <p><span>URL : </span><a href="visitItem.teleconf_url" target="_blank">{{visitItem.teleconf_url || 'N/A'}}</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-center" *ngIf="vstKey == 'today_visits'">
+                    <button type="button" class="btn btn-primary" (click)="attendanceVisit(visitItem?.group_visit_id,visitItem?.teleconf_url)">
+                        Join visit now
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>

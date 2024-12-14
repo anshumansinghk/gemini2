@@ -1,0 +1,253 @@
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <div class="scroll-view">
+            <div>
+              <ss-loading [show]="loading"></ss-loading>
+
+              <div *ngIf="stepOne">
+                <div class="text-center">
+                  <h5 class="title mb-3">Your Journal Exercises</h5>
+                </div>
+                <div class="box-grid">
+                  <div  *ngFor="let data of postTopicsResult">
+                    <div class="card-box" (click)="topicDetail(data.id)">
+                      <div class="class-title">
+                        <div class="text-start">
+                          <h6 class="title">{{ data.title }}</h6>
+                          <div>
+                            <p class="mb-0 card-details">
+                              <span *ngIf="data.completed_at">Completed at {{ data.completed_at | durationUTC }}</span>
+
+                              <span class="mb-0"> ({{ data.target_completed }}/{{
+                                data.target_number
+                                }})</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="unlike">
+                          <img src="assets/images/icons/chevron-thin/chevron-thin.png" class="che-icon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="stepTwo && !stepSix">
+
+                <div class="box-grid">
+                  <div class="journal-card">
+                    <div class="card-box border-0">
+                      <div class="jorunal-align ">
+                        <div class="img-circle">
+                          <img src="assets/images/icons/journal/journal.svg" class="journal-img" />
+                        </div>
+                        <h5 class="title mb-0">{{ topicDetailPostTopic.title }}</h5>
+                        <p class="mb-0">{{ topicDetailPostTopic.instruction }}</p>
+                        <button class="btn btn-primary" (click)="createJournalPage(topicDetailPostTopic.id,'create')">
+                          Create a Journal entry
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-start">
+                    <h5 class="title mb-0">your past Journal entries</h5>
+                  </div>
+                  <div class="card-box border-0" *ngFor="let data of topicDetailPost" (click)="journalPost(data)">
+                    <div class="class-title">
+                      <div class="img-flex">
+                        <div *ngIf="data.image_path">
+                          <img src="{{ data.image_path }}" class="past-journal-img" />
+                        </div>
+                        <div *ngIf="!data.image_path">
+                          <img src="assets/images/icons/journal/journal.svg" class="past-journal-img" />
+                        </div>
+                        <div>
+                          <p class="title mb-0">{{ data.title }}</p>
+                          <p class="time mb-0">
+                            {{ data.created_at | durationUTC }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="unlike">
+                        <img src="assets/images/icons/chevron-thin/chevron-thin.png" class="che-icon" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-grid" *ngIf="stepThree">
+                <div class="card-box border-0">
+                  <div>
+                    <div class="text-start">
+                      <h5 class="title mb-0">{{ isJournalPostViewPagedata.title }}</h5>
+                      <div>
+                        <p class="mb-0 time">
+                          {{ isJournalPostViewPagedata.created_at|durationUTC }}
+                        </p>
+                      </div>
+                      <div>
+
+                        <p class="mb-0 details-title">
+                          {{ isJournalPostViewPagedata.text }}
+                        </p>
+                      </div>
+                      <div class="img-container">
+                        <img src="{{ isJournalPostViewPagedata.image_path }}" class="user-img" />
+                      </div>
+                      <button type="submit" (click)="
+                          createJournalPage(topicDetailPostTopic.id, 'edit_entry')
+                        " class="edit-btn">
+                        <img src="assets/images/icons/edit/edit.svg" class="like-unlike" />
+                        <h6 class="edit-title mb-0"> Edit your entry</h6>
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- <div *ngFor="let data of postTopicsResult">
+                  <p>{{ data.title }}</p>
+                  <p>{{ data.completed_at }}</p>
+                  <span
+                    >{{ data.target_completed }}/{{ data.target_number }}</span
+                  >
+                  <p (click)="topicDetail(data.id)">arrow icon</p>
+                </div> -->
+              <!-- <div *ngFor="let data of topicDetailPost">
+                  <img
+                    src="{{ data.image_path }}"
+                    style="width: 5%; height: 5%"
+                  />
+                  <p>{{ data.title }}</p>
+                  <p>{{ data.created_at | durationUTC }}</p>
+                  <p (click)="journalPost(data)">arrow icon</p>
+                </div> -->
+
+              <!-- <div *ngIf="stepThree">
+                <p>{{ isJournalPostViewPagedata.title }}</p>
+                <p>{{ isJournalPostViewPagedata.text }}</p>
+                <img
+                  src="{{ isJournalPostViewPagedata.image_path }}"
+                  style="width: 5%; height: 5%"
+                />
+                <p
+                  (click)="
+                    createJournalPage(topicDetailPostTopic.id, 'edit_entry')
+                  "
+                >
+                  edit your entry
+                </p>
+              </div> -->
+
+              <div *ngIf="stepFour">
+                <div class="text-center">
+                  <h5 class="title pb-3">{{journalEntryType}}</h5>
+                  <h4 class="title-detail-setting">{{ topicDetailPostTopic.title }}</h4>
+                  <p class="para-details ">{{ topicDetailPostTopic.instruction }}</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-container">
+                      <form class="form-horizontal contact-wrapper" role="form" [formGroup]="uploadForm"
+                        (ngSubmit)="onSubmit('firstStep')" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <div class="form-group">
+                            <input maxlength="87" type="text" formControlName="title"
+                              placeholder="Add a post title (required)" class="form-control" (keyup)="onKeyPress($event)" />
+                               <div class="invalid-flex">
+                                <div class="text-end">
+                                  <label class="label-title">87 Character limit</label>
+                                </div> 
+                                <div *ngIf="isOnlySpace" class="error">
+                                  Invalid value.
+                                </div>
+                              </div>
+                          </div>
+                         
+                        </div>
+                        <div>
+                          <div class="form-group">
+                               
+                         <div class="form-group">
+                              <textarea type="text" formControlName="text" placeholder="Add a post text (optional)"
+                                class="form-control" rows="5"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="add-post">Click the icon below to add an image to your post</span>
+                        <div class="upload-imges">
+                          <!-- *ngIf="!imagePreview" -->
+                          <label for="fileInput" class="custom-file-label">
+                            <ng-container>
+                              <img src="assets/images/camera.png" class="camera-icon" />
+                            </ng-container>
+                          </label>
+                          <input type="file" id="fileInput" formControlName="file" (change)="onFileSelected($event)"
+                            accept="image/*" style="display: none" />
+                          <div *ngIf="imagePreview">
+                            <img [src]="imagePreview" alt="Image Preview" class="upload-img" />
+                          </div>
+                        </div>
+
+                        <div class="btn-center">
+                          <button type="submit" [disabled]="uploadForm.invalid" class="btn btn-primary">
+                            SUBMIT MY ENTRY
+                          </button>
+                        </div>
+                        <button (click)="backStep()" class="cancel-btn">
+                          cancel
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="stepFive">
+                <div class="text-center">
+                  <div class="box-grid">
+                    <h6 class="title">Create a journal entry</h6>
+                    <h5 class="title">Are you happy with this entry?</h5>
+                    <p class="para-details">{{ this.uploadForm.value.title }}</p>
+                    <div *ngIf="imagePreview">
+                      <img [src]="imagePreview" alt="Image Preview" class="create-img" />
+                    </div>
+                    <div class="pt-4">
+                      <button class="btn btn-primary" (click)="submitForm('finalstep')">YES, I'M HAPPY WITH IT</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div *ngIf="stepSix">
+                <div class="jorunal-center">
+                  <div class="img-circle-1">
+                    <img src="assets/images/icons/journal/journal.svg" class="journal-img-1" />
+                  </div>
+                  <div class="text-center">
+                    <h4 class="title mb-4">Keep up the good work!</h4>
+                    <p class="para-details mb-0">
+                      you have completed
+                      {{ topicDetailPostTopic.num_access }} entries in this class. Complete {{
+                      topicDetailPostTopic.complete_more }} more to
+                      reach the target .
+                    </p>
+                  </div>
+
+                  <div class="btn-section">
+                    <button class="btn btn-primary" (click)="goBack()">GO BACK TO MY JOURNAL</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

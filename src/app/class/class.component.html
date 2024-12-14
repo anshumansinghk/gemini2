@@ -1,0 +1,76 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+    <div class="container inner-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-area">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0"
+                                role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">Raadmap</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1"
+                                role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">Virtual Visits</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="tab-content">
+                        <div class="tab-pane active" id="simple-tabpanel-0" role="tabpanel"
+                            aria-labelledby="simple-tab-0">
+                            <div class="scroll-view">
+                                <div class="class-parent">
+                                    <div class="current-tab" *ngFor="let class of classList; index as i">
+                                        <div class="current-tab"  [class.disabled] = "class.class_status == 'lock'">
+                                            <div *ngIf = "class.class_status != 'lock';else emptyTrack">
+            								    <div class="dot" ></div>
+                                                <div class="v-line"></div>
+                                            </div>
+                                            <ng-template #emptyTrack>
+                                                <div class="v-line-disable"></div>
+                                            </ng-template>
+
+                                            <div class="card-box {{class.class_status == 'lock'?'disabled':''}}">
+                                                <div class="class-title">
+                                                    <p class="mb-0">{{('substitute_class' | substitute)+' '+class?.class_number}}</p>
+                                                    <div *ngIf="class.class_status == 'lock';else progressRef">
+                                                        <i class="gm gm-lock"></i>
+                                                    </div>
+                                                    <ng-template #progressRef>
+                                                       <circle-progress
+                                                          [percent]="progressPercent(class.complete_status)"
+                                                          [radius]="10"
+                                                          [maxPercent]="100"
+                                                          [showTitle]="false"
+                                                          [showUnits]="false"
+                                                          [showSubtitle]="false"
+                                                          [showBackground]="false"
+                                                          [showInnerStroke]="true"
+                                                          [showInnerStroke]="true"
+                                                          [backgroundGradient]="false"
+                                                          [innerStrokeColor]="'#eaeaea'"
+                                                          [innerStrokeWidth]="5"
+                                                          [outerStrokeWidth]="5"
+                                                          [space]="-5"
+                                                        ></circle-progress>
+                                                    </ng-template>
+                                                </div>
+                                                <h6 class="to-do">11</h6>
+                                                <span class="card-details">{{class.description}}</span>
+                                                <div class="btn-center" *ngIf="class.class_status != 'lock'">
+                                                    <button type="button" class="btn btn-secondary" routerLink="/class/{{class.class_id}}">{{classAction[class.class_status]+('substitute_class' | substitute) +' '+(i+1) }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    						    </div>
+                            </div> 
+                        </div>
+                        <div class="tab-pane visit-card" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">
+                          <ss-virtual-visit/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

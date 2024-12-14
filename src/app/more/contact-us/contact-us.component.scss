@@ -1,0 +1,89 @@
+// / Dashboard
+.container.inner-container {
+    max-width: 635px;
+   
+}
+ 
+.details {
+    font-size: 17px;
+    line-height: 1.6;
+}
+ 
+.url-highlight {
+    color: #263e72;
+}
+ 
+.main-area {
+    display: block;
+    padding: 20px;
+ 
+    @media (max-width:991px) {
+        padding: 16px 0;
+    }
+}
+ 
+.contact-main {
+    display: flex;
+    justify-content: center;
+}
+ 
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+ 
+.btn-style {
+    background-color: #ceecff;
+}
+ 
+.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+}
+ 
+.left-arrow {
+    width: 20px;
+}
+ 
+.back-title {
+    color: #000;
+    padding-left: 10px;
+    font-size: 18px;
+}
+ 
+.form-container {
+    padding-bottom: 5rem;
+}
+.cancel-btn {
+    border: none;
+    background: transparent;
+    color: #357b40;
+}
+.thankyou-section {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    align-items: center;
+}.sub-title {
+    font-size: 12px;
+    color: #4a4949;
+}
+.thanks-img {
+    width: 100px;
+    height: 100px;
+    background: #ceecff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+}
+.thanks-container{
+    height: 77vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

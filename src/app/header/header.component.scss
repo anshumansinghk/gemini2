@@ -1,0 +1,174 @@
+// header 
+header {
+  nav {
+    .header-inner.center {
+      background-color: #263e72;
+      padding: 14px 20px;
+      align-items: center;
+      // padding-right: 10px;
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 10px;
+        min-width: 166px;
+        @media (max-width:556px) {
+          min-width: 166px;
+        }
+        span {
+          font-size: 18px;
+          text-transform: uppercase;
+          font-weight: 600;
+
+          @media (max-width:556px) {
+            display: none;
+          }
+        }
+
+        img {
+          max-width: 40px;
+        }
+      }
+      .btn-email {
+        background: transparent;
+        border: 0px;
+        display: flex;
+        padding-right: 0px;
+      }
+      .username {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+
+        @media (max-width:556px) {
+          font-size: 18px;
+        }
+      }
+
+      .action-flex {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @media (max-width:556px) {
+          font-size: 14px;
+        }
+
+
+        .btn {
+          color: #fff!important;
+          position: relative;
+          span{
+            position: absolute;
+            top: -4px;
+            right: 5px;
+            background-color: red;
+            border-radius: 10px;
+            font-size: 11px;
+            padding: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.header-side-min-width{
+  min-width: 166px !important;
+}
+
+@media (max-width:556px) {
+  header .logo{
+    min-width: auto !important;
+  }
+
+  .header-side-min-width{
+    min-width: 50px !important;
+  }
+}
+
+.single-logo{
+  min-width: auto !important;
+}
+
+.email-icon{
+  color: #fff;
+}
+.white-back{
+  color: white;
+}
+
+#transparent {
+  position: absolute;
+  background: transparent;
+}
+
+#action {
+  position: absolute;
+  background: transparent;
+  align-items: baseline;
+}
+
+#action .title{
+  color: #263e72;
+  line-height: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+#darkMode{
+  position: absolute;
+  background: transparent;
+  justify-content: end;
+  right: 10px;
+}
+.logo.logo-section {
+  justify-content: flex-start !important;
+}
+.header-back {
+  background: transparent;
+  border: 0px;
+  display: flex;
+  margin-right: 0px;
+  @media (max-width: 991px) {
+    margin-right: 0px;
+  }
+}
+
+.gm-logout{
+  font-weight: 600;
+  color: #fff;
+}
+
+.badge{
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background: red;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  border-radius: 50%;
+  padding: 4px;
+  width: 20px;
+  height: 20px;
+}
+
+// top progress
+
+.header-progress {
+  display: flex;
+  height: 5px;
+  overflow: hidden;
+  font-size: 0.75rem;
+  background-color: #d4f8d4;
+}
+
+.header-progress .bar{
+   background-color: green;
+} 
+

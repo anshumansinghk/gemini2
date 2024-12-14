@@ -1,0 +1,19 @@
+<ss-modal [showClose]="true"  [shortFrame600]="true">
+    <div modal-header class="modal-head d-flex align-items-end justify-content-end">
+        <div (click)="cancel()" style="cursor: pointer;">    <img src="/assets/images/icons/close/close.svg" ></div>  
+    </div>
+    <div modal-body>
+        <div class="flex-center">
+           <div class="image-circle">
+            <img src="/assets/images/health-list.png" class="fav-img" >
+           </div>
+            <h3 class="title">Are you sure?</h3>
+            <div>There are only 3 more short exercises for you to complete. It won't take long!</div>
+        </div>
+    </div>
+    <div modal-footer class="apply-btn">
+        <button (click)="cancel()" class="btn btn-primary">OKAY,I'LL FINISH THE PRACTICES</button>
+        <button  (click)="closeType('YES')" class="skip-btn"  >Yes, I'm sure I want to skip it</button>
+    </div>
+
+</ss-modal>

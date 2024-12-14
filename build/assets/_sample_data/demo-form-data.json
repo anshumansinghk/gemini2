@@ -1,0 +1,88 @@
+{
+  "name": "John",
+  "email": "jdoe@gmail.com",
+  "date": "2017-01-01T18:25:43.511Z",
+  "amount": {
+    "amt": "40.00",
+    "sym": "USD"
+  },
+  "dropList": "y",
+  "organizationList": "A",
+  "divisionList": "optiona-2",
+  "document": {
+    "id": 1,
+    "name": "SampleFile.txt"
+  },
+  "customerAddress": "TEMP",
+  "personSearch": {
+    "name": "Jane Doe",
+    "company": "Temporary Industries",
+    "address": "123 Fake St",
+    "city": "Middletown",
+    "state": "NJ",
+    "zip": "07748",
+    "country": "US"
+  },
+  "mortgageProvider": {
+    "id": 2,
+    "name": "Worldwide Mortgage",
+    "number": "1991304",
+    "country": "US",
+    "status": "active"
+  },
+  "statusUpdates": [
+    {
+      "seq": 1,
+      "someType": "NEW",
+      "updateDate": "2017-05-23T18:25:43.511Z",
+      "calculations": [
+        {
+          "seq": 1,
+          "amount1": {
+            "amt": "45.00",
+            "sym": "USD"
+          },
+          "amount2": {
+            "amt": "60.00",
+            "sym": "USD"
+          }
+        }
+      ]
+    }
+  ],
+  "documentAlt": {
+    "id": 2,
+    "name": "SampleFile2.txt"
+  },
+  "listingupdates": [
+    {
+      "seq": 1,
+      "listingDate": "2017-04-23T18:25:43.511Z",
+      "listingPrice": {
+        "amt": "700.00",
+        "sym": "USD"
+      },
+      "comment": "Sample information for comment."
+    }
+  ],
+  "listingupdatesalt": [
+    {
+      "seq": 1,
+      "fragmentListingPrice": {
+        "amt": "800.00",
+        "sym": "USD"
+      },
+      "fragmentListingDate": "2017-04-29T18:25:43.511Z",
+      "fragmentComment": "Sample fragment comment."
+    }
+  ],
+  "nameAlt": "Mike Doe",
+  "fragmentEmail": "mdoe@gmail.com",
+  "fragmentDate": "2017-03-25",
+  "fragmentAmount": {
+    "amt": "123.00",
+    "sym": "USD"
+
+  },
+  "status": "Y"
+}

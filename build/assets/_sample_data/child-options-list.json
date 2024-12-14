@@ -1,0 +1,62 @@
+﻿[
+      {
+        "parentValue":  "A",
+        "label": "Option A - 1",
+        "value": "optiona-1"
+      },
+      {
+        "parentValue": "A",
+        "label": "Option A - 2",
+        "value": "optiona-2"
+      },
+      {
+        "parentValue": "A",
+        "label": "Option A - 3",
+        "value": "optiona-3"
+      },
+      {
+        "parentValue": "B",
+        "label": "Option B - 1",
+        "value": "optionb-1"
+      },
+      {
+        "parentValue": "B",
+        "label": "Option B - 2",
+        "value": "optionb-2"
+      },
+      {
+        "parentValue": "B",
+        "label": "Option B - 3",
+        "value": "optionb-3"
+      },
+      {
+        "parentValue": "C",
+        "label": "Option C - 1",
+        "value": "optionc-1"
+      },
+      {
+        "parentValue": "C",
+        "label": "Option C - 2",
+        "value": "optionc-2"
+      },
+      {
+        "parentValue": "C",
+        "label": "Option C - 3",
+        "value": "optionc-3"
+      },
+    {
+      "parentValue": "D",
+      "label": "Option D - 1",
+      "value": "optiond-1"
+    },
+    {
+      "parentValue": "D",
+      "label": "Option D - 2",
+      "value": "optiond-2"
+    },
+    {
+      "parentValue": "D",
+      "label": "Option D - 3",
+      "value": "optiond-3"
+    }
+]

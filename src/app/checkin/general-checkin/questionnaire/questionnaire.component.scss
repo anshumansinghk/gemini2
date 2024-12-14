@@ -1,0 +1,49 @@
+.container.inner-container {
+    max-width: 635px;
+  }
+  .main-area {
+    display: block;
+    padding: 20px;
+  
+    @media (max-width:991px) {
+      padding: 16px 0;
+    }
+  }
+
+.questionnaire-radio{
+  padding: 15px 18px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-height: 100%!important;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    input[type='radio']{
+        font-size: 30px;
+    }
+}
+
+.questionnaire-textarea{
+    border-bottom-width: 2px !important;
+    border-radius: 10px;
+    resize: none;
+}
+.customcheck{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.checkin-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.checkintitle{
+  padding: 20px 0px;
+}
+
+textarea.form-control {
+  border-bottom: 0px solid #fff !important;
+}

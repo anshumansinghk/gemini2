@@ -1,0 +1,73 @@
+
+
+<vg-player *ngIf="fileType == 'AUDIO'" class="audio" (onPlayerReady)="onPlayerReady($event)">
+     <vg-controls>
+        <vg-play-pause vgFor="my-audio" (click)="playVideo()"></vg-play-pause>
+
+        <vg-scrub-bar *ngIf="scrubBar">
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        </vg-scrub-bar>
+
+        <div *ngIf="!scrubBar" class="audio-text">
+            {{ audioTitle }}
+        </div>
+
+        <vg-time-display
+        vgProperty="left"
+        vgFormat="mm:ss"
+        ></vg-time-display>
+        <span class="sep-time">/</span>
+        <vg-time-display
+        vgProperty="total"
+        vgFormat="mm:ss"
+        ></vg-time-display>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume>
+        <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+    <audio
+        #myMedia
+        [vgMedia]="$any(myMedia)"
+        id="my-audio"
+        [src]="source"
+        type="audio/mp3"
+        [autoplay]="autoplay"
+        [loop]="loop"
+    ></audio>
+</vg-player>
+
+<vg-player *ngIf="fileType == 'VIDEO'" (onPlayerReady)="onPlayerReady($event)" >
+    <vg-controls>
+      <vg-play-pause (click)="playVideo()"></vg-play-pause>
+      <vg-scrub-bar *ngIf="scrubBar">
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      </vg-scrub-bar>
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+      <span class="sep-time">/</span>
+      <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+      <vg-mute></vg-mute>
+      <vg-volume></vg-volume>
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+    <video
+    id="my-video"
+    [vgMedia]="$any(myMedia)"
+    #myMedia
+    [src]="source"
+    [autoplay]="autoplay"
+    [loop]="loop"
+    [poster]="poster"
+    preload="auto"
+    ></video>
+</vg-player>
+
+<youtube-player 
+    *ngIf="fileType == 'YOUTUBE'"
+    [videoId]="videoId" 
+    [playerVars]="playerVars"
+    [height]="500" 
+    [width]="500" 
+    (ready)="onPlayerReady($event)"
+    (change)="onPlayerStateChange($event)"
+>
+</youtube-player>

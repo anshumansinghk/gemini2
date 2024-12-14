@@ -1,0 +1,11 @@
+<svg id="Group_1438" data-name="Group 1438" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="check-box">
+    <g id="Rectangle_925" data-name="Rectangle 925" fill="none" stroke="#57c9e9" stroke-width="2">
+      <rect width="24" height="24" rx="12" stroke="none"/>
+      <rect x="1" y="1" width="22" height="22" rx="11" fill="none"/>
+    </g>
+  </g>
+  <g id="ic_close" data-name="ic/close" transform="translate(7 7)">
+    <path id="ic_close-2" data-name="ic/close" d="M5.916,5.136,9.81,1.242A.648.648,0,0,0,8.894.326L5,4.22,1.106.326a.648.648,0,1,0-.916.916L4.084,5.136.19,9.03a.648.648,0,1,0,.916.916L5,6.052,8.894,9.946A.648.648,0,0,0,9.81,9.03Zm0,0" transform="translate(0 -0.136)" fill="#57c9e9" stroke="#57c9e9" stroke-width="1"/>
+  </g>
+</svg>

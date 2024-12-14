@@ -1,0 +1,18 @@
+.gray-scale{
+    // position: fixed;
+    // inset: 0px;
+    // overflow: hidden;
+    // padding: 0px;
+    // margin: 0px;
+    // user-select: none;
+    // touch-action: none;
+    // font: 14px sans-serif;
+    // color: red;
+     filter: grayscale(100%);
+}
+
+@media (max-width:432px) {
+  #darkMode .form-check-label{
+    display: none !important;
+  }
+}

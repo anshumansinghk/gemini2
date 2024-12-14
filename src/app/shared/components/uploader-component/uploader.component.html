@@ -1,0 +1,187 @@
+<!--
+*  10/10/2019 - MA - TFS11750 - UI Tweaks
+*  02/27/2020 - MA - TFS11778 - fixed image zoom
+*  03/18/2020 - MA - TFS13231 - upload issues/performance
+-->
+
+
+<ng-container *ngIf="!this.isMobile">
+    <div class="expenseDrop   col-lg-12 col-sm-12 col-md-12" id="expensePanelUploader"
+        style="height: 305px; overflow:auto;">
+        <div>
+            <div class="closer"><i class="fas fa-times-circle" (click)="closeUploaderOverlay()"></i></div>
+        </div>
+        <div class="dropZone fileZone vertical-center" (onFileDrop)="onFileDrop($event)" (fileOver)="fileOver($event)"
+            ng2FileDrop [uploader]="uploader"
+            [ngClass]="{'col-sm-3': (this.uploader?.queue?.length) > 0,'col-sm-12': this.uploader?.queue?.length === 0}">
+
+            <div class="text-center col-sm-12 ">
+                {{'uploaderComponent.dragfilesheretoupload' | translate}}
+                <br />{{'uploaderComponent.orClick' | translate}}
+                <input #el class="btn btn-default btn-sm" style="text-align: center; margin: auto;"
+                    (change)="onFileDrop($event, true)" type="file" ng2FileSelect [uploader]="uploader" multiple />
+                {{'uploaderComponent.manuallyselectfiles' | translate}}.
+            </div>
+        </div>
+        <div style="margin: 0;overflow: auto;" class="col-sm-9" *ngIf="this.uploader?.queue?.length > 0">
+
+            <div class="table-responsive" id="uplaodQueue">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'uploaderComponent.tableHeadings.fileName' | translate}}</th>
+                            <th>{{'uploaderComponent.tableHeadings.description' | translate}}</th>
+                            <th>{{'uploaderComponent.tableHeadings.progress' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of uploader.queue ; let i = index">
+                            <td>{{item?.file?.name}}</td>
+                            <td><input [disabled]="uploadingFinishedLength !== this.uploader?.queue?.length"
+                                    [(ngModel)]="uploadResponse[i]?.message.description" type="text"
+                                    class="form-control"></td>
+                            <td *ngIf="uploadPercent[i] != null">
+                                <div>
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar"
+                                            [ngStyle]="{ 'width': uploadPercent[i] + '%' }">
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="uploadResponse[i]?.status === 'error'">
+                                        {{ uploadResponse.message }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td *ngIf="uploadResponse[i]?.status === 'response'">
+                                <div class="img-padding">
+                                    <!--<div class="img-zoom-container" magnifyImage [imgId]="'myimage'"
+                                        [resultId]="'myresult'" [index]="i" (zoomFlagEmitter)="zoomFlag = $event">-->
+                                        <div class="img-zoom-container" >
+                                        <img id="myimage{{i}}" [src]="this.uploadResponse[i]?.message?.documentImage">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- magnifier div starts -->
+        <div [hidden]="!zoomFlag" style="overflow: hidden;
+                 position: absolute;
+                 z-index: 199;
+                 right: 300px;
+                 top: 00px;
+                 " class="img-zoom-result" id="myresult"></div>
+        <!-- magnifier div ends -->
+
+
+
+    </div>
+    <div class="col-sm-12">
+        <button *ngIf="uploaded && this.uploader?.queue?.length > 0"
+            [disabled]="uploadingFinishedLength !== this.uploader?.queue?.length"
+            (click)="saveDocumentsToTransactional()" type="button" class="btn btn-primary pull-right">
+            {{'uploaderComponent.doneButton' | translate}}
+        </button>
+    </div>
+
+</ng-container>
+
+
+<ng-container *ngIf="this.isMobile">
+
+    <!-- <div class="expenseDrop   col-lg-12 col-sm-12 col-md-12" id="expensePanelUploader"
+     style="height: 305px; overflow:auto;">
+    
+    </div> -->
+    <div class="panel panel-primary" style="position:fixed;left:0px;top:0px;width:100%;z-index:9999">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-10 " style="font-size:larger">
+                    <strong>{{'uploaderComponent.upload-receipt' | translate}}</strong>
+                </div>
+                <div *ngIf="canClose" class="closer"><i class="fas fa-times-circle"
+                        (click)="closeUploaderOverlay()"></i></div>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="form-horizontal">
+        <div class="container" style="width:95%; margin-top:65px;">
+            <div class="form-group">
+
+
+                <div class="col-xs-12 ">
+                    <div class="row-child form-group">
+
+                        <label for="file-upload" class="inputfile text-center" (click)="capture()">
+                            <i class="fas fa-cloud-upload-alt"></i><span class="btn-lg text-clipper"
+                                id="uploadText">
+                                {{'uploaderComponent.capture-receipt' | translate}}
+                            </span>
+                        </label>
+                        <!-- <input id="file-upload" type="file" accept="image/*;capture=camera" /> -->
+                        <input id="file-upload" #el class="btn btn-default btn-sm"
+                            style="text-align: center; margin: auto;display: none;" accept="image/*;capture=camera"
+                            (change)="onFileDrop($event, true)" type="file" ng2FileSelect [uploader]="uploader"
+                            multiple />
+                    </div>
+                </div>
+
+                <div *ngIf="this.uploader?.queue?.length">
+                    <input [disabled]="uploadingFinishedLength !== this.uploader?.queue?.length" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="uploadResponse[0]?.message.description" type="text" class="form-control">
+                </div>
+                <div *ngIf="uploadPercent[0] != null">
+                    <div>
+                        <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar"
+                                [ngStyle]="{ 'width': uploadPercent[0] + '%' }">
+                            </div>
+                        </div>
+
+                        <div *ngIf="uploadResponse[0]?.status === 'error'">
+                            {{ uploadResponse?.message }}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="uploadResponse[0]?.status === 'response'" class="image-view" id="receiptImage">
+
+                    <div class="image text-center">
+                        <!-- <img src="/receipt.jpg" id="receiptImg"> -->
+                        <img (click)="viewReceiptImage();" id="myimage{{0}}"
+                            [src]="this.uploadResponse[0]?.message?.documentImage">
+                    </div>
+
+                    <div id="myoverlay" [hidden]="!imgOverlay" class="overlay" (click)="turnOffOverlay()">
+                        <div style="display: block;z-index: 1000;"
+                            *ngIf="this.uploadResponse[0]?.message?.documentImage">
+                            <img id="myimage" alt="Fullscreen" [src]="this.uploadResponse[0]?.message?.documentImage">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="this.uploader?.queue?.length" class="col-xs-12 ">
+                    <div class="row-child form-group">
+                        <!-- <button *ngIf="uploaded && this.uploader?.queue?.length > 0" 
+                            [disabled]="uploadingFinishedLength !== this.uploader?.queue?.length" 
+                            (click)="saveDocumentsToTransactional()" type="button" class="btn btn-primary pull-right">
+                            {{'uploaderComponent.doneButton' | translate}}
+                        </button> -->
+                        <button type="button" (click)="mobileUpload()"
+                            [disabled]=" uploadingFinishedLength !== this.uploader?.queue?.length" id="uploadButton"
+                            class="btn btn-lg  btn-default btn-full">{{'uploaderComponent.save' | translate}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+</ng-container>

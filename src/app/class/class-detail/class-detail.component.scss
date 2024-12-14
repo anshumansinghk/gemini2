@@ -1,0 +1,251 @@
+.container.inner-container {
+  max-width: 991px;
+}
+
+.main-area ul.nav.nav-tabs {
+  display: flex;
+  width: 65%;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex-direction: row !important;
+  align-items: flex-start;
+  border: 1px solid green;
+  border-radius: 26px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  @media (max-width: 991px) {
+    width: 100%;
+  }
+}
+
+.main-area {
+  display: block;
+  padding: 20px;
+
+  @media (max-width: 991px) {
+    padding: 16px 0;
+  }
+}
+
+.main-area ul.nav.nav-tabs li.nav-item {
+  width: 100%;
+}
+
+.main-area ul.nav.nav-tabs li.nav-item a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0 !important;
+  border-radius: 0px;
+}
+
+a.nav-link {
+  color: #357b40 !important;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 6px;
+}
+
+a.nav-link.active {
+  background: #357b40 !important;
+  color: #fff !important;
+}
+
+.tab-content > .active {
+  // display: flex !important;
+  gap: 3px;
+}
+.class-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-style {
+  background-color: #ceecff;
+}
+
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.img-flex {
+  display: flex;
+  align-items: flex-start;
+    width: 100%;
+  justify-content: flex-start;
+  overflow-x: auto;
+  margin: 0 auto;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  max-width: 700px;
+
+  @media (max-width: 991px) {
+    width: 100%;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+.circle-center svg {
+  transform: scale(0.9);
+}
+.circle-img {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+
+  @media (max-width: 991px) {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f29e55;
+  }
+}
+.details {
+  margin-bottom: 40px;
+  @media (max-width: 991px) {
+    margin-bottom: 10px;
+  }
+}
+.main-title {
+  padding: 25px 0px;
+  @media (max-width: 991px) {
+    padding: 15px 0px;
+  }
+}
+.circle-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 20%;
+  padding: 0px 10px;
+}
+.meditation-img {
+  width: 28px;
+}
+
+.title {
+  color: #666363;
+  padding-top: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  white-space: pre-wrap;
+}
+.flex-number {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.number {
+  background: green;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+}
+.class-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .che-icon {
+    width: 9px;
+    height: 15px;
+  }
+  
+  .comm-title{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  }
+  .cum-heading{
+    font-weight: 700;
+    color: #263e72;
+    margin-bottom: 0;
+    text-transform: uppercase;
+
+  }
+  .logo-img{
+    width: 25px;
+    height: 25px;
+  }
+  .post {
+    color: #263e72;
+    margin-bottom: 0;
+    background-color: #cbefcb;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 50px;
+  }
+  .details-1{
+    display: flex;
+    padding: 7px 0px 0px 81px;
+    justify-content: space-between;
+  
+  }
+  .activity-img {
+    height: 60px !important;
+    background: #ddebd0;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 60px;
+    width: auto;
+  }
+  .practice-title{
+    font-size: 14px;
+    color: #817e7e;
+    font-weight:600 ;
+  }
+
+  .check-img{
+    width: 20px;
+}
+.class-details-text{
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 25px;
+  @media (max-width: 991px) {
+    padding-bottom: 0px;
+  }
+}
+.flex-text{
+  display: flex;
+  align-items: center;
+}
+.card-details {
+  font-size: 14px;
+  color: #3a3737;
+}
+.flex-practice{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+}
+.practice-img {
+  width: 50px;
+  height: auto;
+  max-width: fit-content;
+  height: 50px;
+  &.disabled{
+    opacity: 0.5;
+    }
+}

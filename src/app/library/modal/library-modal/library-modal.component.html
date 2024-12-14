@@ -1,0 +1,46 @@
+
+<ss-loading [show]='loading'></ss-loading>
+<ss-modal [showClose]="true"  [shortFrame600]="true">
+        <div modal-header class="modal-head">
+            <div class="clear-filter-btn">
+                <h6 class="modal-title filter" id="modal-basic-title" (click)="clearOption()">Clear filter</h6>
+            </div>
+            <div>
+                <h4 class="modal-title filter-title" id="modal-basic-title">Filters</h4>
+            </div>       
+                <span id="modal-basic-title" (click)="cancel()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </span>  
+        </div>
+        <div modal-body>
+            <div class="mb-3">
+                <div class="row" *ngFor="let data of menuData; let i = index">
+                    <label class="filter-list">
+                       
+                      <span>
+                        {{ data.title }} <img *ngIf="data.is_icon"
+                        src="assets/images/icons/fav-like/fav-like.png" class="unlike-icon">
+                      </span>
+                      <span>
+                        <div class="round">
+                            <input
+                            type="radio"
+                            [name]="'groupName'"  
+                            [value]="data.id"
+                            [(ngModel)]="selectedOption" 
+                          />
+                          <label for="radio"></label>
+                        </div>
+                      </span>
+                      </label>
+                </div>
+            </div>
+        </div>
+        <div modal-footer class="apply-btn">
+            <button type="button" (click)="routeToLesson()" class="btn btn-secondary ">APPLY</button>
+        </div>
+
+</ss-modal>

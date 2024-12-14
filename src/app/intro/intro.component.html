@@ -1,0 +1,17 @@
+<section class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-container">
+                    <img src="{{'sign_in_logo' | siteData}}" alt="">
+                    <h1>{{"intro.welcome" | translate:{site_name: ('site_name' | siteData) }  }}</h1>
+                    <p>{{ ('welcome_message' | siteData)?('welcome_message' | siteData):("intro.message" | translate) }}</p>
+                    <button class="btn btn-primary" routerLink="/auth/login">
+                       {{  "signIn" | translate}}
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

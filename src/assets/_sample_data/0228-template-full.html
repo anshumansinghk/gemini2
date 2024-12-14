@@ -1,0 +1,839 @@
+<!--
+Changes to the renderer:
+
+- Add form tags surrounding everything
+
+- Make all elements have a closing tag not not self close
+
+    Only void and foreign elements can be self closed "div"
+                    [ERROR ->]<div [se-form-messages]="name" />
+
+    Should be <div [se-form-messages]="name"></div>
+    Same for textarea
+
+- Make sure containers and classes match bootstrap
+
+- add #{inputname}Model="ngModel" to all inputs
+- add #{inputname}Element to all inputs
+
+- ng-repeat > *ngFor
+
+- se-select:
+    add #element
+    se-parent > [se-parent]
+    *se-select
+
+- se-typeahead is a sperate tag
+
+- se-date
+
+- se-form-messages > [se-form-messages]
+
+- se-person-search > se-person
+
+Questions:
+
+- in se-email, what is the functionality of some-attribute="attrib-value" and another-one="another-value"?
+
+-->
+
+
+
+<div se-section-id="propertyAddress">
+    <section id="propertyAddress" class="se-section">
+        <h2>{{'seForms.sectionTitles.propertyAddress' | translate}}</h2>
+
+        <div class="full-width-col">
+            <div class="se-form-field se-customer-address">
+                <div se-customer-address=""
+                     #customerAddressModel="ngModel"
+                     #customerAddressElement=""
+                     [(ngModel)]="form.customerAddress"
+                     ngDefaultControl=""
+                     name="customerAddress"
+                     label-key="address.property"></div>
+                <div [se-form-messages]="customerAddressModel" [se-form-messages-element]="customerAddressElement"></div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<div se-section-id="randomfields">
+    <section id="randomfields" class="se-section">
+        <h2>{{'seForms.sectionTitles.sampleFields' | translate}}</h2>
+        <div class="left-col">
+
+            <!-- input with events -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-text required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.name' | translate}}</span>
+                        <input type="text"
+                               #nameModel="ngModel"
+                               #nameElement=""
+                               [(ngModel)]="form.name"
+                               name="name"
+                               se-custom-validation="doValidationThing"
+                               required=""
+                               maxlength="10"
+                               se-onfocus="doFocusThing"
+                               se-onblur="doBlurThing"
+                               se-onchange="doChangeThing"
+                               placeholder="{{ 'seForms.form0228.enterName' | translate}}"
+                               class="form-control" />
+                    </label>
+                    <div [se-form-messages]="nameModel" [se-form-messages-element]="nameElement">
+                        <div ng-message="custom" translate>Name must be 'Jason'</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- email -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-email required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.email' | translate}}</span>
+                        <input type="email"
+                               class="form-control"
+                               #emailModel="ngModel"
+                               #emailElement
+                               [(ngModel)]="form.email"
+                               name="email"
+                               se-email=""
+                               required=""
+                               some-attribute="attrib-value"
+                               another-one="another-value" />
+                    </label>
+                    <div [se-form-messages]="emailModel" [se-form-messages-element]="emailElement">
+                        <div ng-message="required" translate="">seforms.form0228.emailRequired</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Date picker -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-date required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.date' | translate}}</span>
+                        <span se-date
+                              #dateModel="ngModel"
+                              #dateElement
+                              [(ngModel)]="form.date"
+                              name="date"
+                              ngDefaultControl
+                              required=""></span>
+                    </label>
+                    <div [se-form-messages]="dateModel" [se-form-messages-element]="dateElement"></div>
+                </div>
+            </div>
+
+
+            <div class="field-wrapper">
+                <div class="se-form-field se-date required">
+                    <label>
+                        <span>{{'date' | translate}}</span>
+                        <span se-date=""
+                              #dateModel="ngModel"
+                              #dateElement=""
+                              [(ngModel)]="form.date"
+                              ngDefaultControl=""
+                              name="date"
+                              required=""></span>
+                    </label>
+                    <div [se-form-messages]="dateModel" [se-form-messages-element]="dateElement">
+                        <div ng-message="required" translate="">required</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Currency -->
+            <!--<div class="field-wrapper">
+                <div class="se-form-field se-currency required">
+                    <fieldset ngModelGroup="amount">
+                        <label>
+                            <span>{{'seForms.fieldLabels.amount' | translate}}</span>
+                            <input type="text"
+                                    #amountModel="ngModel"
+                                    #amountElement=""
+                                    [(ngModel)]="form.amount.amt"
+                                    name="amt"
+                                    se-currency=""
+                                    required="" />
+                            <input type="hidden"
+                                    [(ngModel)]="form.amount.sym"
+                                    name="sym" />
+                        </label>
+                    </fieldset>
+                    <div [se-form-messages]="amountModel" [se-form-messages-element]="amountElement"></div>
+                </div>
+            </div>-->
+
+
+            <div class="field-wrapper">
+                <div class="se-form-field se-currency required">
+                    <fieldset ngModelGroup="amount">
+                        <label>
+                            <span>{{'amount' | translate}}</span>
+                            <input type="text"
+                                   [(ngModel)]="form.amount.amt"
+                                   #amountModel="ngModel"
+                                   #amountElement=""
+                                   name="amt"
+                                   se-currency=""
+                                   placeholder="from renderer"
+                                   required="">
+                            <input type="hidden"
+                                   [(ngModel)]="form.amount.sym"
+                                   name="sym">
+                        </label>
+                    </fieldset>
+                    <div [se-form-messages]="amountModel" [se-form-messages-element]="amountElement"><div ng-message="required" translate="">required</div></div>
+                </div>
+            </div>
+
+            <!-- Static dropdown  -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-list required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.staticList' | translate}}</span>
+                        <select class="form-control"
+                                #dropListModel="ngModel"
+                                #dropListElement
+                                [(ngModel)]="form.dropList"
+                                name="dropList"
+                                required=""
+                                se-select="">
+                            <option value="" translate="">seForms.placeholders.selectOne</option>
+                            <option value="y" translate="" se-parent-value="A">seForms.options.yes</option>
+                            <option value="n" translate="" se-parent-value="B">seForms.options.no</option>
+                        </select>
+                    </label>
+                    <div [se-form-messages]="dropListModel" [se-form-messages-element]="dropListElement"></div>
+                </div>
+            </div>
+
+
+            <!-- Static dropdown with parent  -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-list required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.staticList' | translate}} 2</span>
+                        <select class="form-control"
+                                #dropList2Model="ngModel"
+                                #dropList2Element
+                                [(ngModel)]="form.dropList2"
+                                name="dropList2"
+                                required=""
+                                se-select=""
+                                [se-parent]="dropList">
+                            <option value="" translate="">seForms.placeholders.selectOne</option>
+                            <option value="child-y" translate="" se-parent-value="y">Parent is Yes</option>
+                            <option value="child-n" translate="" se-parent-value="n">Parent is No</option>
+                        </select>
+                    </label>
+                    <div [se-form-messages]="dropList2Model" [se-form-messages-element]="dropList2Element"></div>
+                </div>
+            </div>
+
+
+            <!-- async typeahead  -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-list required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.organization' | translate}}</span>
+                        <select class="form-control"
+                                #organizationListModel="ngModel"
+                                #organizatinListElement
+                                [(ngModel)]="form.organizationList"
+                                name="organizationList"
+                                required=""
+                                se-select="/assets/_sample_data/options-list.json">
+                            <option value="" translate="">seForms.placeholders.selectOne</option>
+                        </select>
+                        <ss-typeahead [se-parent]="organizatinListElement"></ss-typeahead>
+                    </label>
+                    <div [se-form-messages]="organizationListModel" [se-form-messages-element]="organizationListElement"></div>
+                </div>
+            </div>
+
+
+            <!-- async typeahead with parent  -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-list required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.division' | translate}}</span>
+                        <select class="form-control"
+                                #divisionListModel="ngModel"
+                                #divisionListElement
+                                [(ngModel)]="form.divisionList"
+                                name="divisionList"
+                                required=""
+                                [se-parent]="organizationList"
+                                se-select="/assets/_sample_data/child-options-list.json"></select>
+                        <ss-typeahead [se-parent]="divisionListElement"></ss-typeahead>
+                    </label>
+                    <div [se-form-messages]="divisionListModel" [se-form-messages-element]="divisionListElement"></div>
+                </div>
+            </div>
+
+
+            <!-- async dropdown with parent  -->
+            <div class="field-wrapper">
+                <div class="se-form-field se-list required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.division' | translate}}</span>
+                        <select class="form-control"
+                                #divisionList2Model="ngModel"
+                                #divisionList2Element
+                                [(ngModel)]="form.divisionList2"
+                                name="divisionList2"
+                                required=""
+                                [se-parent]="organizationList"
+                                se-select="/assets/_sample_data/child-options-list.json"></select>
+                    </label>
+                    <div [se-form-messages]="divisionList2Model" [se-form-messages-element]="divisionList2Element"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right-col-wide">
+
+            <!-- document selector -->
+            <div class="top-link">
+                <div class="se-form-field se-document">
+                    <span se-document=""
+                          #documentModel="ngModel"
+                          #documentElement=""
+                          [(ngModel)]="form.document"
+                          ngDefaultControl=""
+                          name="document"
+                          label-key="document"
+                          required=""></span>
+
+                    <div [se-form-messages]="documentModel" [se-form-messages-element]="documentElement"></div>
+                </div>
+            </div>
+
+            <!-- textarea -->
+            <div class="wide-wrapper">
+                <div class="se-form-field se-note">
+                    <label>
+                        <span>{{'seForms.fieldLabels.note' | translate}}</span>
+                        <textarea class="form-control"
+                                  #noteModel="ngModel"
+                                  #noteElement
+                                  [(ngModel)]="form.note"
+                                  name="note"
+                                  se-note=""></textarea>
+                    </label>
+                    <div [se-form-messages]="noteModel" [se-form-messages-element]="noteElement"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+<div se-section-id="searches">
+    <section id="searches" class="se-section">
+        <h2>{{'seForms.sectionTitles.searches' | translate}}</h2>
+
+        <div class="left-col-narrow">
+            <div class="se-form-field se-person-search">
+                <ss-person [se-model]="form.personSearch"
+                           (se-model-change)="form.personSearch = $event;"
+                           name="personSearch"
+                           label-key="seForms.fieldLabels.personSearch"
+                           required=""></ss-person>
+            </div>
+        </div>
+        <div class="right-col-wide">
+            <div class="mortgage-link">
+                <div class="se-form-field se-organization">
+                    <ss-organization [(ngModel)]="form.mortgageProvider"
+                                     ngDefaultControl=""
+                                     name="mortgageProvider"
+                                     label-key="seForms.fieldLabels.mortgageProvider"
+                                     required=""></ss-organization>
+                </div>
+            </div>
+            <div class="gray-content-block">
+                <h3>Completion Instructions</h3><p>By selecting...</p>
+                <div class="se-form-field se-yesno">
+                    <label>
+                        <span>{{'seForms.fieldLabels.status' | translate}}</span>
+                        <select #statusModel="ngModel"
+                                #statusElement
+                                [(ngModel)]="form.status"
+                                name="status">
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </label>
+                    <div [se-form-messages]="statusModel" [se-form-messages-element]="statusElement"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div se-section-id="statusupdatesection">
+    <section id="statusupdatesection" class="se-section">
+        <h2>{{'seForms.sectionTitles.statusUpdate' | translate}}</h2>
+
+        <ss-repeatable ngModelGroup="statusUpdates"
+                       [se-model]="form.statusUpdates"
+                       [se-default-model]="formDetails.defaultData.statusUpdates[0]">
+            <ss-repeatable-item *ngFor="let item of form.statusUpdates; let s = index"
+                                [se-model-index]="s"
+                                [ngModelGroup]="s">
+
+                <input type="hidden"
+                       [ngModel]="s + 1"
+                       name="seq" />
+
+                <div class="se-row">
+                    <div class="se-col-1-3">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-date">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.updateDate' | translate}}</span>
+                                    <span se-date
+                                          #updateDateModel="ngModel"
+                                          #updateDateElement
+                                          [(ngModel)]="item.updateDate"
+                                          name="updateDate"
+                                          ngDefaultControl></span>
+                                </label>
+                                <div [se-form-messages]="updateDateModel" [se-form-messages-element]="updateDateElement"></div>
+                            </div>
+                        </div>
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-list">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.age' | translate}}</span>
+                                    <span>
+                                        <label>
+                                            <input type="radio"
+                                                   [(ngModel)]="item.someType"
+                                                   name="someType"
+                                                   value="NEW" />
+                                            {{ 'seForms.options.new' | translate}}
+                                        </label>
+                                        <label>
+                                            <input type="radio"
+                                                   [(ngModel)]="item.someType"
+                                                   name="someType"
+                                                   value="OLD" />
+                                            {{ 'seForms.options.old' | translate}}
+                                        </label>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="se-col-2-3">
+
+                        <ss-repeatable ngModelGroup="calculations"
+                                       [se-model]="item.calculations"
+                                       [se-default-model]="formDetails.defaultData.statusUpdates[0].calculations[0]">
+                            <ss-repeatable-item *ngFor="let calc of item.calculations; let c = index"
+                                                [se-model-index]="c"
+                                                [ngModelGroup]="c">
+
+                                <input type="hidden"
+                                       [ngModel]="c + 1"
+                                       name="seq" />
+
+
+                                <div class="field-wrapper">
+                                    <div class="se-form-field se-currency required">
+                                        <label ngModelGroup="amount1">
+                                            <span>{{'seForms.fieldLabels.amount1' | translate}}</span>
+                                            <input type="text"
+                                                   #amount1Model="ngModel"
+                                                   #amount1Element
+                                                   [(ngModel)]="calc.amount1.amt"
+                                                   name="amt"
+                                                   se-currency=""
+                                                   required="" />
+                                            <input type="hidden"
+                                                   [(ngModel)]="calc.amount1.sym"
+                                                   name="sym" />
+                                        </label>
+                                        <div [se-form-messages]="amount1Model" [se-form-messages-element]="amount1Element"></div>
+                                    </div>
+                                </div>
+                                <div class="field-wrapper">
+                                    <div class="se-form-field se-currency">
+                                        <label ngModelGroup="amount2">
+                                            <span>{{'seForms.fieldLabels.amount2' | translate}}</span>
+                                            <input type="text"
+                                                   #amount2Model="ngModel"
+                                                   #amount2Element
+                                                   [(ngModel)]="calc.amount2.amt"
+                                                   name="amt"
+                                                   se-currency=""
+                                                   required="" />
+                                            <input type="hidden"
+                                                   [(ngModel)]="calc.amount2.sym"
+                                                   name="sym" />
+                                        </label>
+                                        <div [se-form-messages]="amount2Model" [se-form-messages-element]="amount2Element"></div>
+                                    </div>
+                                </div>
+                                <div class="field-wrapper">
+                                    <div class="se-form-field se-calculated">
+                                        <label>
+                                            <span>{{'seForms.fieldLabels.subtotal' | translate}}</span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   disabled="disabled"
+                                                   [(ngModel)]="calc.camount"
+                                                   name="camount"
+                                                   se-calculated="calcSample"
+                                                   [se-watch]="calc" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </ss-repeatable-item>
+                        </ss-repeatable>
+
+                    </div>
+                </div>
+                <div class="se-row">
+                    <div class="se-col-1-3">
+                        <div class="se-form-field se-calculated">
+                            <label>
+                                <span>{{'seForms.fieldLabels.total' | translate}}</span>
+                                <input type="text"
+                                       class="form-control"
+                                       disabled="disabled"
+                                       [ngModel]="item.totalCAmount"
+                                       (se-model-change)="item.totalCAmount = $event"
+                                       name="totalCAmount"
+                                       se-calculated="calcSampleTotal"
+                                       [se-watch]="item" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </ss-repeatable-item>
+        </ss-repeatable>
+    </section>
+</div>
+
+
+<!-- Repeatable with repeatable child test -->
+<!--<ss-repeatable ngModelGroup="listingupdates"
+                [se-model]="form.listingupdates"
+                [se-default-model]="formDetails.defaultData.listingupdates[0]">
+    <ss-repeatable-item *ngFor="let item of form.listingupdates; let l = index"
+                        [se-model-index]="l"
+                        [ngModelGroup]="l">
+        <p>Item {{ l + 1}}</p>
+        <div>
+            <label>Street:</label>
+            <input type="text" name="id" [(ngModel)]="item.id" required>
+        </div>
+        <div>
+            <label>Zip:</label>
+            <input type="text" name="label" [(ngModel)]="item.label" required>
+        </div>
+
+        <ss-repeatable ngModelGroup="children"
+                        [se-model]="item.children"
+                        [se-default-model]="formDetails.defaultData.listingupdates[0].children[0]">
+            <ss-repeatable-item *ngFor="let child of item.children; let c = index"
+                                [se-model-index]="c"
+                                [ngModelGroup]="c">
+                <p>Item {{ l + 1}} - Child {{ c + 1 }} </p>
+                <div>
+                    <label>Name:</label>
+                    <input type="text" name="name" [(ngModel)]="child.name" required>
+                </div>
+            </ss-repeatable-item>
+        </ss-repeatable>
+    </ss-repeatable-item>
+</ss-repeatable>-->
+
+
+
+<div se-section-id="listingupdatesection">
+    <section id="listingupdatesection" class="se-section">
+        <h2>{{'seForms.sectionTitles.listingUpdate' | translate}}</h2>
+
+        <ss-repeatable ngModelGroup="listingupdates"
+                       [se-model]="form.listingupdates"
+                       [se-default-model]="formDetails.defaultData.listingupdates[0]">
+            <ss-repeatable-item *ngFor="let item of form.listingupdates; let l = index"
+                                [se-model-index]="l"
+                                [ngModelGroup]="l">
+
+                <input type="hidden"
+                       [ngModel]="l + 1"
+                       name="seq" />
+
+                <div class="se-row">
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-date required">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.listingDate' | translate}}</span>
+                                    <span se-date
+                                          #listingDateModel="ngModel"
+                                          #listingDateElement
+                                          [(ngModel)]="item.listingDate"
+                                          name="listingDate"
+                                          ngDefaultControl>
+                                    </span>
+                                </label>
+                                <div [se-form-messages]="listingDateModel" [se-form-messages-element]="listingDateElement"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-currency required">
+                                <label ngModelGroup="listingPrice">
+                                    <span>{{'seForms.fieldLabels.listingPrice' | translate}}</span>
+                                    <input type="text"
+                                           #listingPrice="ngModel"
+                                           #listingPriceElement
+                                           [(ngModel)]="item.listingPrice.amt"
+                                           name="amt"
+                                           se-currency=""
+                                           required="" />
+                                    <input type="hidden"
+                                           [(ngModel)]="item.listingPrice.sym"
+                                           name="sym" />
+                                </label>
+                                <div [se-form-messages]="listingPrice" [se-form-messages-element]="listingPriceElement"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="se-row">
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-text required">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.comment' | translate}}</span>
+                                    <textarea class="form-control"
+                                              #commentModel="ngModel"
+                                              #commentElement
+                                              [(ngModel)]="item.comment"
+                                              name="comment"
+                                              required
+                                              maxlength="1000"></textarea>
+                                </label>
+                                <div [se-form-messages]="commentModel" [se-form-messages-element]="commentElement"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ss-repeatable-item>
+        </ss-repeatable>
+
+    </section>
+</div>
+
+<div se-section-id="listingupdatesectionalt">
+    <section id="listingupdatesectionalt" class="se-section">
+        <h2>{{'seForms.sectionTitles.listingUpdateAlt' | translate}}</h2>
+
+        <ss-repeatable ngModelGroup="listingupdatesalt"
+                       [se-model]="form.listingupdatesalt"
+                       [se-default-model]="formDetails.defaultData.listingupdatesalt[0]">
+            <ss-repeatable-item *ngFor="let item of form.listingupdatesalt; let l = index"
+                                [se-model-index]="l"
+                                [ngModelGroup]="l">
+
+                <input type="hidden"
+                       [ngModel]="l + 1"
+                       name="seq" />
+
+                <div class="se-row">
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-date required">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.listingDate' | translate}}</span>
+                                    <span se-date
+                                          #fragmentListingDateModel="ngModel"
+                                          #fragmentListingDateElement
+                                          [(ngModel)]="item.fragmentListingDate"
+                                          name="fragmentListingDate"
+                                          ngDefaultControl>
+                                    </span>
+                                </label>
+                                <div [se-form-messages]="fragmentListingDateModel"
+                                     [se-form-messages-element]="fragmentListingDateElement"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-currency required">
+                                <label ngModelGroup="fragmentListingPrice">
+                                    <span>{{'seForms.fieldLabels.listingPrice' | translate}}</span>
+                                    <input type="text"
+                                           #fragmentListingPriceModel="ngModel"
+                                           #fragmentListingPriceElement
+                                           [(ngModel)]="item.fragmentListingPrice.amt"
+                                           name="amt"
+                                           se-currency=""
+                                           required="" />
+                                    <input type="hidden"
+                                           [(ngModel)]="item.fragmentListingPrice.sym"
+                                           name="sym" />
+                                </label>
+                                <div [se-form-messages]="fragmentListingPriceModel"
+                                     [se-form-messages-element]="fragmentListingPriceElement"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="se-row">
+                    <div class="se-col-1-2">
+                        <div class="field-wrapper">
+                            <div class="se-form-field se-text required">
+                                <label>
+                                    <span>{{'seForms.fieldLabels.comment' | translate}}</span>
+                                    <textarea class="form-control"
+                                              #fragmentCommentModel="ngModel"
+                                              #fragmentCommentElement
+                                              [(ngModel)]="item.fragmentComment"
+                                              name="fragmentComment"
+                                              required
+                                              maxlength="1000"></textarea>
+                                </label>
+                                <div [se-form-messages]="fragmentCommentModel"
+                                     [se-form-messages-element]="fragmentCommentElement"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ss-repeatable-item>
+        </ss-repeatable>
+
+    </section>
+</div>
+
+<div se-section-id="randomfieldsAlt">
+    <section id="randomfieldsAlt" class="se-section">
+        <h2>{{'seForms.sectionTitles.moreSampleFields' | translate}}</h2>
+        <div class="left-col">
+            <div class="field-wrapper">
+                <div class="se-form-field se-text required">
+                    <label>
+                        <span>{{'seForms.fieldLabels.name' | translate}}</span>
+                        <input type="text"
+                               #nameAltModel="ngModel"
+                               #nameAltElement
+                               [ngModel]="form.nameAlt"
+                               name="nameAlt"
+                               se-custom-validation="doValidationThing"
+                               required=""
+                               se-onfocus="doFocusThing"
+                               se-onblur="doBlurThing"
+                               se-onchange="doChangeThing"
+                               class="form-control" />
+                    </label>
+                    <div [se-form-messages]="nameAltModel" [se-form-messages-element]="nameAltElement"></div>
+                </div>
+            </div>
+            <fieldset id="additionalfieldsAlt" class="se-fieldset">
+
+                <div class="field-wrapper">
+                    <div class="se-form-field se-email required">
+                        <label>
+                            <span>{{'seForms.fieldLabels.email' | translate}}</span>
+                            <input type="email"
+                                   class="form-control"
+                                   #fragmentEmailModel="ngModel"
+                                   #fragmentEmailElement
+                                   [ngModel]="form.fragmentEmail"
+                                   name="fragmentEmail"
+                                   se-email=""
+                                   required=""
+                                   some-attribute="attrib-value"
+                                   another-one="another-value" />
+                        </label>
+                        <div [se-form-messages]="fragmentEmailModel" [se-form-messages-element]="fragmentEmailElement">
+                            <div ng-message="required" translate="">seforms.validation.required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-wrapper">
+                    <div class="se-form-field se-date required">
+                        <label>
+                            <span>{{'seForms.fieldLabels.date' | translate}}</span>
+                            <span se-date
+                                  #fragmentDateModel="ngModel"
+                                  #fragmentDateElement
+                                  [(ngModel)]="form.fragmentDate"
+                                  name="fragmentDate"
+                                  ngDefaultControl>
+                            </span>
+                        </label>
+                        <div [se-form-messages]="fragmentDateModel"
+                             [se-form-messages-element]="fragmentDateElement">
+                            <div ng-message="required" translate="">seforms.validation.required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field-wrapper">
+                    <div class="se-form-field se-currency required">
+
+                        <label ngModelGroup="fragmentAmount">
+                            <span>{{'seForms.fieldLabels.listingPrice' | translate}}</span>
+                            <input type="text"
+                                   #fragmentAmountModel="ngModel"
+                                   #fragmentAmountElement
+                                   [(ngModel)]="form.fragmentAmount.amt"
+                                   name="amt"
+                                   se-currency=""
+                                   required="" />
+                            <input type="hidden"
+                                   [(ngModel)]="form.fragmentAmount.sym"
+                                   name="sym" />
+                        </label>
+                        <div [se-form-messages]="fragmentAmountModel"
+                             [se-form-messages-element]="fragmentAmountElement"></div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="right-col-wide">
+            <div class="top-link">
+                <div class="se-form-field se-document">
+                    <span se-document #documentAltModel="ngModel"
+                          #documentAltElement
+                          [ngModel]="form.documentAlt"
+                          (se-model-change)="form.documentAlt = $event;"
+                          name="documentAlt"
+                          ngDefaultControl
+                          label-key="seForms.fieldLabels.document"
+                          required=""></span>
+                    <div [se-form-messages]="documentAltModel"
+                         [se-form-messages-element]="documentAltElement"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div se-form-config="" se-onload="doLoadThing" se-onsave="doSaveThing"></div>
+

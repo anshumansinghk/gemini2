@@ -1,0 +1,34 @@
+<!--
+*************************************************************************
+*  Object Name: stepped-progress.component.html
+**************************************************************************
+-->
+
+
+
+<div style="height:60px;margin-top:50px;" *ngIf="stepConfig != null">
+
+    <div class="SPcontainer">
+        <div class="SPprogress" id="SPProgress">
+            <ng-template ngFor let-row [ngForOf]="stepConfig" let-i="index">
+                <div class="SPpercent" id="SPpercent{{i}}"></div>
+            </ng-template>
+        </div>
+
+        <div class="SPsteps">
+            <ng-template #stepBar ngFor let-row [ngForOf]="stepConfig" let-i="index">
+                <div class="SPstep" id="SPstep{{i}}">
+                    <i id="SPSpin{{i}}" title="{{stepConfig[i].label | translate}}" class="SPSpinner fas fa-circle-notch fa-spin"></i>
+                    <i class="SPIcon fas fa-exclamation-triangle" title="{{stepConfig[i].label | translate}}" id="stepIcon{{i}}"></i>
+                </div>
+            </ng-template>
+            <div class="SPstep" id="SPstep{{(stepConfig.length)}}">
+                <i id="SPSpin{{(stepConfig.length)}}" class="SPSpinner fas fa-circle-notch fa-spin"></i>
+                <i class="SPIcon fas fa-check-double" id="stepIcon{{(stepConfig.length)}}"></i>
+            </div>
+        </div>
+    </div>
+    <div id="progressLabel" class="SPLabel text-center">{{currentLabel | translate}}</div>
+
+
+</div>

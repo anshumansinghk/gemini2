@@ -1,0 +1,93 @@
+<ss-loading [show]="loading"></ss-loading>
+<header *ngIf="headerShowFlag">
+  <nav [ngSwitch]="headerConfig?.type">
+    <!-- defualt header -->
+    <div *ngSwitchCase="'default'" class="header-inner center">
+      <div *ngIf="!headerConfig?.back; else backRef" class="logo logo-section header-side-min-width">
+        <img src="{{'sign_in_logo' | siteData }}" alt="">
+        <!-- <span>{{site?.site_name}}</span> -->
+      </div>
+
+      <ng-template #backRef>
+        <button class="header-back header-side-min-width" (click)="headerConfig?.back!='no-nav'?backArrow(headerConfig?.back):''">
+          <i class="white-back gm gm-back-to {{headerConfig?.back=='no-nav'?'d-none':''}}"></i>
+        </button>
+      </ng-template>
+
+      <p class="username">
+        {{ title | titlecase}}
+      </p>
+      <div class="action-flex header-side-min-width">
+        <ss-dark-mode></ss-dark-mode>
+
+        <button class="btn-email" routerLink="/message">
+          <i class="gm gm-envelope-green email-icon"></i>
+          <span *ngIf="access?.total_notification>0" class="badge">{{access?.total_notification>9?'9+':access?.total_notification}}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- transparent header -->
+    <div id="transparent" *ngSwitchCase="'transparent'" class="header-inner center">
+      <button class="btn" (click)="backArrow(headerConfig?.back)">
+        <i class="gm gm-back-to"></i>
+      </button>
+      <div class="logo">
+        <img class="d-none" src="assets/images/logo.png" alt="">
+      </div>
+      <ss-dark-mode></ss-dark-mode>
+    </div>
+
+    <!-- transparent header -->
+    <div id="darkMode" *ngSwitchCase="'darkMode'" class="header-inner center">
+      <div class="logo">
+        <ss-dark-mode></ss-dark-mode>
+      </div>
+    </div>
+
+     <!-- companion header -->
+    <div *ngSwitchCase="'companion'" class="header-inner center">
+      <div *ngIf="!headerConfig?.back; else backRef" class="logo logo-section single-logo header-side-min-width">
+        <img src="{{site?.sign_in_logo}}" alt="">
+      </div>
+
+      <ng-template #backRef>
+        <button class="header-back header-side-min-width" (click)="headerConfig?.back!='no-nav'?backArrow(headerConfig?.back):''">
+          <i class="white-back gm gm-back-to {{headerConfig?.back=='no-nav'?'d-none':''}}"></i>
+        </button>
+      </ng-template>
+
+      <p class="username">
+        {{ title | titlecase}}
+      </p>
+      <div class="action-flex header-side-min-width">
+
+        <button class="btn-email" (click)="logout()">
+          <i class="gm gm-logout"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-progress" *ngIf="progressCount">
+      <div class="bar" [style.width.%]="progressCount"></div>
+    </div>
+
+    <!-- progress header header -->
+    <div id="action" *ngSwitchCase="'progress'" class="header-inner center">
+      
+      <button class="btn" (click)="backArrow(headerConfig?.back)">
+        <i class="gm gm-back-to"></i>
+      </button>
+       <p class="title">
+        {{ title | titlecase}}
+      </p>
+      <button class="btn" (click)="actionRight()">
+        <span class="{{rightActionVal?.class??''}}">{{rightActionVal?.title??'action'}}</span>
+      </button>
+    </div>
+
+  </nav>
+
+  <button id="moveToTab" appTabTracker #directiveRef="appTabTracker" (click)="directiveRef.moveToTab();" class="d-none" width="0">Click tab</button>
+
+</header>

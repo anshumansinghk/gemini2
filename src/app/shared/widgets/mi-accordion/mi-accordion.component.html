@@ -1,0 +1,99 @@
+<div *ngIf="previous_module_detail" class="dashboard span-margin">
+  <div
+    *ngFor="let previousModule of previous_module_detail; let i = index"
+    class="clearfix"
+  >
+    <h3
+      class="d-flex justify-content-between align-items-center p-3 px-3"
+      (click)="toggleAccordion(i)"
+      *ngIf="previousModule.pages.length != 0"
+    >
+      <h5 class="primary-text mb-0 f-w-bold f-24">
+        <i class="circle-blue-new"><i class="if lf-skills"></i></i>
+        {{ previousModule.module_name }}
+      </h5>
+
+      <button
+        type="button"
+        class="btn-green me-5"
+        *ngIf="
+          !previousModule.tool_ex_wk_info_id &&
+          previousModule.pages.length != 0 &&
+          previousModule.module_status != 'current_module'
+        "
+        (click)="
+          getPage(
+            previousModule.module_section_id,
+            previousModule.module_info_id,
+            previousModule.tool_ex_wk_info_id,
+            previousModule.pages[0]?.id,
+            previousModule.pages[0]?.template_type
+          )
+        "
+        class="btn-green my-2 me-5"
+      >
+        {{ 'tool.start' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn-green me-5"
+        *ngIf="
+          previousModule.tool_ex_wk_info_id &&
+          previousModule.pages.length != 0 &&
+          previousModule.module_status != 'current_module'
+        "
+        (click)="
+          getPage(
+            previousModule.module_section_id,
+            previousModule.module_info_id,
+            previousModule.tool_ex_wk_info_id,
+            previousModule.pages[0]?.id,
+            previousModule.pages[0]?.template_type
+          )
+        "
+        class="btn-green my-2 me-5"
+      >
+        <i class="lf leaf-skills"></i> {{ 'tool.edit' | translate }}
+      </button>
+
+      <span [class.open]="isGroupShown(i)"> &#10095; </span>
+    </h3>
+
+    <div *ngIf="isGroupShown(i)" class="toggle-list">
+      <div padding-top>
+        <button
+          *ngIf="
+            !previousModule.pages.length &&
+            previousModule.pages.length == 0 &&
+            previousModule.module_status != 'current_module'
+          "
+          class="btn btn-blue-outline-sm"
+        >
+          <i class="lf leaf-skills"></i> {{ 'tool.noPagesAvailable' | translate }}
+        </button>
+      </div>
+      <ul *ngIf="previousModule?.previous_module_info">
+        <li
+          *ngFor="let moduleInfo of previousModule?.previous_module_info"
+          (click)="seeDetail(moduleInfo?.id)"
+        >
+          <a href="javascript:void(0)"
+            >{{ 'tool.submissionSavedAt' | translate }} {{ moduleInfo.time }} {{ 'tool.on' | translate }}
+            {{ moduleInfo.date }}</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div *ngIf="faq_detail">
+  <div *ngFor="let faq of faq_detail; let i = index">
+    <h3 (click)="toggleAccordion(i)">
+      {{ faq.question }}
+      <span [class.open]="isGroupShown(i)">&#10095;</span>
+    </h3>
+    <div *ngIf="isGroupShown(i)" class="toggle-list">
+      <div class="box-white" [innerHTML]="faq.answer" padding></div>
+    </div>
+  </div>
+</div>

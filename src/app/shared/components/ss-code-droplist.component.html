@@ -1,0 +1,10 @@
+
+<select title="{{_title}}" *ngIf="isMulti === false" class="form-control" [required]="isRequired" (change)="uiChange($event)" [disabled]="isDisabled || isLoading" [id]="id" (blur)="this.onTouched()">
+    <ng-template ngFor let-option [ngForOf]="options" let-i="index">
+        <option [title]="option.toolTip" [value]="option.codeValue" [selected]="option.codeValue == _value">
+            {{option }}
+            <!-- {{option | seCodeFormatDisplay : displayMode : displaySeperator : displayPrefix : displaySuffix: option | translate}} -->
+        </option>
+    </ng-template>
+
+</select>

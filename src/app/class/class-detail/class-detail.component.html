@@ -1,0 +1,372 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <!-- activity progress list -->
+          <div class="img-flex scroll-container"  ssHorizontalViewScroll>
+            <div class="circle-center" *ngFor="let progkey of progressDetail | key;" [ngClass]="{'d-none':!classDetail?.target_progress[progkey]}">
+              <div class="" (click)="navigationActivity(progressDetail[progkey].type)">
+                <circle-progress
+                    [percent]="progressPercent(classDetail?.target_progress[progkey])"
+                    [radius]= "30"
+                    [space]= "-5"
+                    [outerStrokeWidth]= "6"
+                    [outerStrokeColor]= "'#f29e55'"
+                    [innerStrokeColor]= "'#ffffff'"
+                    [innerStrokeWidth]= "5"
+                    imageSrc= "assets/images/icons/{{progressDetail[progkey].icon}}"
+                    [imageHeight]= "30"
+                    [imageWidth]= "30"
+                    [showImage]= "true"
+                    [showBackground]= "false"
+                ></circle-progress>
+              </div>
+              <h6 class="title">{{progressDetail[progkey].title}}</h6>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link active"
+                id="simple-tab-0"
+                data-bs-toggle="tab"
+                href="#simple-tabpanel-0"
+                role="tab"
+                aria-controls="simple-tabpanel-0"
+                aria-selected="true"
+                >{{'classDetail.todo' | translate}}</a
+              >
+            </li>
+            <li class="nav-item" role="presentation" *ngIf="featureAccess.features?.enable_practice_log">
+              <a
+                class="nav-link"
+                id="simple-tab-1"
+                data-bs-toggle="tab"
+                href="#simple-tabpanel-1"
+                role="tab"
+                aria-controls="simple-tabpanel-1"
+                aria-selected="false"
+                >{{'classDetail.practiceLog' | translate}}</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content" id="tab-content">
+            <div
+              class="tab-pane active"
+              id="simple-tabpanel-0"
+              role="tabpanel"
+              aria-labelledby="simple-tab-0"
+            >
+              <div class="scroll-view">
+                <div>
+                  <div class="scroll-view">
+                    <div>
+                      <h6 class="title-detail-setting">{{classDetail?.title}}</h6>
+                      <p class="class-details-text">
+                        {{classDetail?.description}}
+                      </p>
+
+                    </div>
+
+                    <div class="box-grid">
+                      <div class="box-grid">
+
+                        <div [ngClass]="{'d-none':classObjective?.length<=0}">
+                          <h6 class="title-detail-setting text-capitalize" *ngIf="classDetail?.class_number">{{'classDetail.objectiveTitle' | translate:{class_number:classDetail?.class_number, substitute_class:('substitute_class' | substitute) } }}</h6>
+                          <p class="card-details">
+                            {{'classDetail.objectiveInstruction' | translate:{substitute_class:(('substitute_class' | substitute) | lowercase) }  }}
+                          </p>
+
+                          <div class="card-box mt-2" *ngFor="let objective of classObjective ;index as objIndex">
+                            <div class="class-title">
+                              <div class="flex-number">
+                                <p class="number mb-0">{{objIndex+1}}</p>
+                                <p class="mb-0">{{objective.title}}</p>
+                              </div>
+                              <div>
+                                <div class="cust-checkbox">
+                                  <div>
+                                    <div class="new">
+                                      <form>
+                                       
+                                        <div class="cust-checkbox">
+                                          <div>
+                                            <div class="new">
+                                              <form>
+                                                <div class="form-group">
+                                                  <input
+                                                    type="checkbox"
+                                                    id="html"
+                                                    [checked]="objective?.is_done"
+                                                    (click)="updateObjective(objective?.id)"
+                                                  />
+                                                  <label class="customcheck" for="html"></label>
+                                                </div>
+                                              </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- class activities start-->
+                        <div>
+                          <div class="py-2">
+                            <h6 class="title-detail-setting text-capitalize" *ngIf="classDetail?.class_number">{{'classDetail.activityTitle' | translate:{class_number:classDetail?.class_number, substitute_class:('substitute_class' | substitute) } }}</h6>
+                          </div>
+
+                          <div class="box-grid">
+                            <!-- learning topics -->
+                            <div class="card-box" [ngClass]="{'d-none':!classDetail?.target_progress?.learning_topic}">
+                              <div class="class-title">
+                                <div class="comm-title">
+                                  <img
+                                    src="assets/images/icons/learning/learning.svg"
+                                    class="activity-img"
+                                  />
+                                  <div>
+                                    <p class="practice-title mb-0">{{'classDetail.learningTitle' | translate}}</p>
+                                    <div class="pt-2">
+                                      <h6 class="cum-heading">{{classDetail?.title}}</h6>
+                                    </div>
+                                  </div>
+                                </div>
+                                <circle-progress
+                                  [percent]="progressPercent(classDetail?.target_progress.learning_topic)"
+                                  [radius]="10"
+                                  [maxPercent]="100"
+                                  [showTitle]="false"
+                                  [showUnits]="false"
+                                  [showSubtitle]="false"
+                                  [showBackground]="false"
+                                  [showInnerStroke]="true"
+                                  [showInnerStroke]="true"
+                                  [backgroundGradient]="false"
+                                  [innerStrokeColor]="'#eaeaea'"
+                                  [innerStrokeWidth]="5"
+                                  [outerStrokeWidth]="5"
+                                  [space]="-5"
+                                ></circle-progress>
+                              </div>
+                              <div class="details-1">
+                                <h6 class="card-details">
+                                {{classDetail?.description}}
+                                </h6>
+                              </div>
+                              <div class="btn-center">
+                                <button type="submit" class="btn btn-secondary" (click)="navigationActivity('learning')">
+                                  {{'classDetail.learningButton' | translate}}
+                                </button>
+                              </div>
+                            </div>
+
+
+                            <!-- Audio pracitce/ video practice -->
+                            <div class="card-box" *ngFor="let practice of classDetail?.class_activity?.practices;index as pkey" [ngClass]="{'d-none':!classDetail?.target_progress?.[practice?.type+'_practice'] }">
+                              <div class="class-title">
+                                <div class="comm-title">
+                                  <img
+                                    src="assets/images/icons/{{practice?.type=='body'?'body-scan/body-scan.svg':'classes-icon/meditation_pose/meditation.svg'}}"
+                                    class="activity-img"
+                                  />
+                                  <div>
+                                    <p class="practice-title mb-0 text-capitalize">{{'classDetail.practiceTitle' | translate:{type:(practice?.type=='body'?'Video':'Audio')} }}</p>
+                                    <div class="pt-2">
+                                      <h6 class="cum-heading">{{practice?.title}}</h6>
+                                    </div>
+                                  </div>
+                                </div>
+                                <circle-progress
+                                  [percent]="progressPercent(classDetail?.target_progress.mind_practice)"
+                                  [radius]="10"
+                                  [maxPercent]="100"
+                                  [showTitle]="false"
+                                  [showUnits]="false"
+                                  [showSubtitle]="false"
+                                  [showBackground]="false"
+                                  [showInnerStroke]="true"
+                                  [showInnerStroke]="true"
+                                  [backgroundGradient]="false"
+                                  [innerStrokeColor]="'#eaeaea'"
+                                  [innerStrokeWidth]="5"
+                                  [outerStrokeWidth]="5"
+                                  [space]="-5"
+                                ></circle-progress>
+                              </div>
+                              <div class="details-1">
+                                <h6 class="card-details">
+                                {{classDetail?.class_activity?.practices.description}}
+                                </h6>
+                              </div>
+                              <div class="btn-center">
+                                <button type="submit" class="btn btn-secondary" (click)="navigationActivity(practice?.type)">
+                                  {{'classDetail.practiceButton' | translate:{type:(practice?.type=='body'?'Video':'Audio')} }}
+                                </button>
+                              </div>
+                            </div>
+                          
+
+                            <!-- Written practice -->
+                            <div class="card-box" (click)="navigationActivity('written')" [ngClass]="{'d-none':!classDetail?.target_progress?.written_practice}">
+                              <div class="class-title">
+                                <div class="comm-title">
+                                  <img
+                                    src="assets/images/icons/classes-icon/written-practice.svg"
+                                    class="activity-img"
+                                  />
+                                  <div>
+                                    <p class="practice-title mb-0">{{'classDetail.writtenTitle' | translate}}</p>
+                                    <div class="pt-2">
+                                      <h6 class="cum-heading">{{classDetail?.class_activity.written_practice.title}}</h6>
+                                    </div>
+                                  </div>
+                                </div>
+                              <circle-progress
+                                  [percent]="progressPercent(classDetail?.target_progress.written_practice)"
+                                  [radius]="10"
+                                  [maxPercent]="100"
+                                  [showTitle]="false"
+                                  [showUnits]="false"
+                                  [showSubtitle]="false"
+                                  [showBackground]="false"
+                                  [showInnerStroke]="true"
+                                  [showInnerStroke]="true"
+                                  [backgroundGradient]="false"
+                                  [innerStrokeColor]="'#eaeaea'"
+                                  [innerStrokeWidth]="5"
+                                  [outerStrokeWidth]="5"
+                                  [space]="-5"
+                                ></circle-progress>
+                              </div>
+                              <div class="details-1">
+                                <h6 class="card-details">
+                                {{classDetail?.class_activity.written_practice.description}}
+                                </h6>
+                              </div>
+                              <div class="btn-center">
+                                <button type="submit" class="btn btn-secondary" (click)="navigationActivity('written')">
+                                  {{'classDetail.writtenButton' | translate}}
+                                </button>
+                              </div>
+                            </div>
+
+                            <!-- journal and community topics -->
+                            <div class="card-box" *ngFor="let topic of classDetail?.post_topics" [ngClass]="{'d-none':!classDetail?.target_progress?.[topic?.type] }">
+                              <div class="class-title">
+                                <div class="comm-title">
+                                  <img
+                                    src="assets/images/icons/classes-icon/{{topic.type=='community'?'community-icon/community.svg':'journal-icon/journal.svg'}}"
+                                    class="activity-img"
+                                  />
+                                  <div>
+                                    <p class="practice-title mb-0 text-capitalize">{{topic?.type}}</p>
+                                    <div class="pt-2">
+                                      <h6 class="cum-heading">{{topic?.title}}</h6>
+                                    </div>
+                                  </div>
+                                </div>
+                                <circle-progress
+                                    [percent]="progressPercent(topic.type=='community'?classDetail?.target_progress.community:classDetail?.target_progress.journal)"
+                                    [radius]="10"
+                                    [maxPercent]="100"
+                                    [showTitle]="false"
+                                    [showUnits]="false"
+                                    [showSubtitle]="false"
+                                    [showBackground]="false"
+                                    [showInnerStroke]="true"
+                                    [showInnerStroke]="true"
+                                    [backgroundGradient]="false"
+                                    [innerStrokeColor]="'#eaeaea'"
+                                    [innerStrokeWidth]="5"
+                                    [outerStrokeWidth]="5"
+                                    [space]="-5"
+                                  ></circle-progress>
+                              </div>
+                              <div class="details-1">
+                                <h6 class="card-details">
+                                  {{topic?.instruction}}
+                                </h6>
+                              </div>
+                              <div class="btn-center">
+                                <button type="submit" class="btn btn-secondary" (click)="navigationActivity(topic?.type)">
+                                  {{'classDetail.postButton' | translate:{type:topic?.type} }}
+                                </button>
+                              </div>
+                            </div>
+
+                            <!-- activites ends -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane"
+              id="simple-tabpanel-1"
+              role="tabpanel"
+              aria-labelledby="simple-tab-1"
+            >
+              <div class="scroll-view">
+                <div class="tab-content visit-card" id="myTabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="home"
+                    role="tabpanel"
+                    aria-labelledby="home-tab"
+                  >
+                  <div class="scroll-view">
+                   
+                   <div class="flex-text">
+                    <p class="card-details" *ngIf="practiceLog?.remain_targets">
+                     {{'classDetail.practiceLogDesc' | translate:{remainTargets:practiceLog?.remain_targets} }}
+                    </p>
+                   </div>
+                    <p class="title-detail-setting">{{'classDetail.audioPractice' | translate}} ({{practiceLog?.completed_target.mind??0}}/{{practiceLog?.given_target.mind??0}})</p>
+                    <div class="flex-practice">
+
+                      <img  *ngFor="let _ of practiceLog?.given_target.mind??0 | fillArr; let i = index;" src="assets/images/icons/classes-icon/meditation_pose/meditation.svg" class="practice-img" [ngClass]="{'disabled':(i+1)>practiceLog?.completed_target.mind??0}" alt="{{i+', '+practiceLog?.completed_target.mind}}"/>
+
+                    </div>
+
+                    <div class="flex-text">
+                    <p class="card-details mv-20">
+                      {{!(practiceLog?.given_target.mind)?('classDetail.noPractice' | translate):''}}
+                    </p>
+                    </div>
+                    <p class="title-detail-setting">{{'classDetail.videoPractice' | translate}} ({{practiceLog?.completed_target.body??0}}/{{practiceLog?.given_target.body??0}})</p>
+                    <div class="flex-text">
+                    <p class="card-details">
+                      {{!(practiceLog?.given_target.body)?('classDetail.noPractice' | translate) :'' }}
+                    </p>
+                    <div class="flex-practice">
+
+                      <img  *ngFor="let _ of practiceLog?.given_target.body??0 | fillArr;let i = index;" src="assets/images/icons/body-scan/body-scan.svg" class="practice-img"  [ngClass]="{'disabled':(i+1) > practiceLog?.completed_target.body??0}"/>
+                      
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

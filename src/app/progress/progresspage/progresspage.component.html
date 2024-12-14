@@ -1,0 +1,182 @@
+<div class="tab-pane" id="simple-tabpanel-1" role="tabpanel">
+  <div class="box-grid">
+    <div class="main-area-1">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="simple-tab-3"
+            data-bs-toggle="tab"
+            href="#simple-tabpanel-3"
+            role="tab"
+            aria-controls="simple-tabpanel-3"
+            aria-selected="true"
+            >Current {{ 'substitute_class' | substitute }}</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="simple-tab-4"
+            data-bs-toggle="tab"
+            href="#simple-tabpanel-4"
+            role="tab"
+            aria-controls="simple-tabpanel-4"
+            aria-selected="false"
+            >Garden</a
+          >
+        </li>
+      </ul>
+
+      <div>
+        <div class="tab-content pt-3" id="tab-content">
+          <div
+            class="tab-pane active"
+            id="simple-tabpanel-3"
+            role="tabpanel"
+            aria-labelledby="simple-tab-3"
+          >
+            <div class="scroll-view">
+              <div class="box-grid">
+                <div class="pb-4">
+                  <div class="text-center">
+                    <h6 class="card-details">
+                      Below is your progress for this <span class="text-lowercase">{{ 'substitute_class' | substitute }}</span> so for.
+                    </h6>
+                  </div>
+                  <div class="progress-icon pt-3">
+                    <img
+                      src="assets/images/icons/trowel.svg"
+                      class="pro-icon"
+                    />
+                    <img
+                      src="assets/images/icons/trowel.svg"
+                      class="pro-icon"
+                    />
+                    <img
+                      src="assets/images/icons/seeds.svg"
+                      class="pro-icon"
+                    />
+                    <img
+                      src="assets/images/icons/watering-can.svg"
+                      class="pro-icon"
+                    />
+                    <img
+                      src="assets/images/icons/sun.svg"
+                      class="pro-icon"
+                    />
+                    <img
+                      src="assets/images/icons/sprout.svg"
+                      class="pro-icon"
+                    />
+                  </div>
+                  <div class="progress">
+                    <div class="bar" [style.width.%]="progress"></div>
+                  </div>
+                  <div class="progress-count">
+                    <p>0</p>
+                    <p>20</p>
+                    <p>40</p>
+                    <p>60</p>
+                    <p>80</p>
+                    <p>100</p>
+                  </div>
+                </div>
+                <div *ngFor="let key of mergedDataKeys()">
+                  <div class="card-box-1" (click)="topicPage(key)">
+                    <div class="class-title">
+                      <div>
+                        <h5 class="to-do">{{ key }}</h5>
+                      </div>
+                      <div>
+                        <p class="complete">
+                          <span class="cum-heading">
+                            {{ mergedData[key] }}</span
+                          >
+                          completed
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane"
+            id="simple-tabpanel-4"
+            role="tabpanel"
+            aria-labelledby="simple-tab-4"
+          >
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <div class="scroll-view">
+                  <div class="box-grid">
+                    <div class="text-center">
+                      <h5 class="to-do">Keep up the great work!</h5>
+                      <h6 class="card-details">
+                        Be sure to finish your activities to earn more rewards.
+                        come back here to check on your progress
+                      </h6>
+                    </div>
+                    <div class="img-flex">
+                      <!-- [style.opacity]="classDetail?.complete_status" -->
+                      <div class="circle-center" *ngFor="let classDetail of classList" >
+                        <div class="progress-circle-body">
+                          <div >
+                            <circle-progress
+                                [percent]="progressPercent(classDetail?.complete_status)"
+                                [radius]= "32"
+                                [space]= "-2"
+                                [outerStrokeWidth]= "2"
+                                [outerStrokeColor]= "'#357b40'"
+                                [innerStrokeColor]= "'#EBEBEB'"
+                                [innerStrokeWidth]= "2"
+                                imageSrc= "assets/images/flower-icons/class{{classDetail?.class_number??1}}.svg"
+                                [imageHeight]= "35"
+                                [imageWidth]= "30"
+                                [showImage]= "true"
+                                [showBackground]= "true"
+                                backgroundColor= "#FDB900"
+                                [backgroundOpacity]="1"
+                                backgroundGradientStopColor= "#c0c0c0"
+                                [backgroundGradient]="true"
+                            ></circle-progress>
+                          </div>
+                        </div>
+                        <h6 class="flower-title">{{ 'substitute_class' | substitute }} {{classDetail?.class_number}}</h6>
+                      </div>
+
+                     <!--  <div class="circle-center">
+                        <div class="circle-img">
+                          <img
+                            src="assets/images/flower-icons/class1.svg"
+                            class="flower-img"
+                          />
+                        </div>
+                        <h6 class="flower-title">Class 2</h6>
+                      </div>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              >
+                2
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

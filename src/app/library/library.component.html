@@ -1,0 +1,130 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+      <div class="row">
+          <div class="col-12">
+              <div class="main-area">
+                <ul class="nav nav-tabs h-scroll-active scroll-container" role="tablist" ssHorizontalViewScroll>
+                    <li class="nav-item" role="presentation" *ngFor="let menu of menuData; let i=index;" (click)="openMenu(menu.id)">
+                        <a class="nav-link" [ngClass]="currentMenuOption == menu.id ? 'active' : ''" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0"
+                            role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">{{ menu.title  }}
+                            <img *ngIf="menu.is_icon" class="unlike-icon" src="assets/images/icons/fav-like/fav-like.png">
+                        </a>
+                    </li>
+                </ul>
+
+                  <div class="tab-content pt-4" id="tab-content">
+                      <div class="tab-pane active" id="simple-tabpanel-0" role="tabpanel"
+                          aria-labelledby="simple-tab-0">
+                          <div>
+                              <div class="class-title pb-3">
+                                  <span class="lab-title fltr" (click)="filter()">Filter <img
+                                          src="assets/images/icons/filter/icon-filter.png"
+                                          class="filter-icon"></span>
+                                  <span>
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle  sort-by" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false" (click)="toggleSortBtn()">
+                                            {{ currentSortByOptionTitle != '' ? currentSortByOptionTitle : 'Sort by' }} <img
+                                                src="assets/images/icons/chevron-thin/chevron-thin.png"
+                                                class="sort-icon">
+                                        </button>
+                                        <ul class="dropdown-menu" [ngClass]="sortBtnFlag ? 'show' : ''" aria-labelledby="dropdownMenuButton1">
+                                            <li *ngFor="let option of sortByData" (click)="onSortChange(option.id,option.title)" ><a class="dropdown-item">{{ option.title }}</a></li>
+                                        </ul>
+                                    </div>
+                                  </span>
+                              </div>
+                              <div class="scroll-view">
+                              <div class="box-grid">
+                                  <div class="card-box" *ngFor="let list of LibraryList; let i = index">
+                                      <div class="class-title" (click)="openLibraryDetail(getLibraryDetailId(list))">
+                                          <div class="text-start">
+                                            <h5 class="para-details">{{ list.created_at | date: 'MMM dd, y' }}</h5>
+                                              <h6 class="to-do mb-0">{{ list.title }}</h6>
+                                          </div>
+                                          <div class="unlike">
+                                              <div>
+                                                  <img *ngIf="list.is_favorite" src="assets/images/icons/fav-like/fav-like.png"
+                                                      class="unlike-icon" (click)="addFavourate($event,list.id)">
+                                                  
+                                                  <img *ngIf="!list.is_favorite" src="assets/images/icons/fav-unlike/fav-unlike.png"
+                                                  class="unlike-icon" (click)="addFavourate($event,list.id)">    
+                                              </div>
+                                              <img src="assets/images/icons/chevron-thin/chevron-thin.png"
+                                                  class="che-icon">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">
+                          <div class="tab-content" id="myTabContent">
+                              <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                  aria-labelledby="home-tab">
+                                  <div class="class-title pb-3">
+                                      <span class="lab-title">Filter <img
+                                              src="assets/images/icons/filter/icon-filter.png"
+                                              class="filter-icon"></span>
+                                              <span>
+                                                  <div class="dropdown">
+                                                      <button class="dropdown-toggle  sort-by" type="button"
+                                                          id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                          aria-expanded="false">
+                                                          Sort by <img
+                                                              src="assets/images/icons/chevron-thin/chevron-thin.png"
+                                                              class="sort-icon">
+                                                      </button>
+                                                      <ul class="dropdown-menu show" aria-labelledby="dropdownMenuButton1">
+                                                          <li><a class="dropdown-item" href="#">Newest</a></li>
+                                                          <li><a class="dropdown-item" href="#">Oldest</a></li>
+                                                          <li><a class="dropdown-item" href="#">A-Z</a></li>
+                                                          <li><a class="dropdown-item" href="#">Z-A</a></li>
+                                                      </ul>
+                                                  </div>
+                                          </span>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane" id="simple-tabpanel-2" role="tabpanel" aria-labelledby="simple-tab-2">
+                          <div class="tab-content" id="myTabContent">
+                              <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                  aria-labelledby="home-tab">
+                                  <div class="class-title pb-3">
+                                      <span class="lab-title">Filter <img
+                                              src="assets/images/icons/filter/icon-filter.png"
+                                              class="filter-icon"></span>
+                                              <span>
+                                                  <div class="dropdown">
+                                                      <button class="dropdown-toggle  sort-by" type="button"
+                                                          id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                          aria-expanded="false">
+                                                          Sort by <img
+                                                              src="assets/images/icons/chevron-thin/chevron-thin.png"
+                                                              class="sort-icon">
+                                                      </button>
+                                                      <ul class="dropdown-menu show" aria-labelledby="dropdownMenuButton1">
+                                                          <li><a class="dropdown-item" href="#">Newest</a></li>
+                                                          <li><a class="dropdown-item" href="#">Oldest</a></li>
+                                                          <li><a class="dropdown-item" href="#">A-Z</a></li>
+                                                          <li><a class="dropdown-item" href="#">Z-A</a></li>
+                                                      </ul>
+                                                  </div>
+                                          </span>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+</section>

@@ -1,0 +1,68 @@
+{
+    "customerAddress": "",
+    "name": "",
+    "email": "",
+    "date": null,
+    "dropList": "",
+    "organizationList": "",
+    "divisionList": "",
+    "status": "0",
+    "nameAlt": "",
+    "fragmentEmail": "",
+    "fragmentDate": null,
+    "amount": "33.55",
+    "document": {
+        "id": "0",
+        "name": ""
+    },
+    "personSearch": {
+        "name": "",
+        "company": "",
+        "address": "",
+        "city": "",
+        "state": "",
+        "zip": "",
+        "country": ""
+    },
+    "mortgageProvider": {
+        "id": "0",
+        "name": ""
+    },
+    "documentAlt": {
+        "id": "0",
+        "name": ""
+    },
+    "fragmentAmount": "33.55",
+    "statusUpdates": [
+        {
+            "seq": 1,
+            "updateDate": null,
+            "someType": "",
+            "totalCAmount": "0",
+            "calculations": [
+                {
+                    "seq": 1,
+                    "camount": "0",
+                    "amount1": "0",
+                    "amount2": "0"
+                }
+            ]
+        }
+    ],
+    "listingupdates": [
+        {
+            "seq": 1,
+            "listingDate": null,
+            "comment": "",
+            "listingPrice": "0"
+        }
+    ],
+    "listingupdatesalt": [
+        {
+            "seq": 1,
+            "fragmentListingDate": null,
+            "fragmentComment": "",
+            "fragmentListingPrice": "0"
+        }
+    ]
+}

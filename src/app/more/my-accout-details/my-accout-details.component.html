@@ -1,0 +1,138 @@
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <section class="main-area">
+            <div class="scroll-view-form">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-container">
+
+                    <form class="form-horizontal contact-wrapper" [formGroup]="myAccoutForm" role="form">
+
+
+                      <div class="form-group">
+                        <label class="label-title">First Name</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (first_name.touched && first_name.invalid) || (errorFlag && first_name.invalid) }">
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="First Name"
+                            formControlName="first_name"
+                            name="first_name"
+                            [value]="userData.first_name"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="First Name" [ss-form-element]="first_name">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="label-title">Last Name</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (last_name.touched && last_name.invalid) || (errorFlag && last_name.invalid) }">
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Last Name"
+                            formControlName="last_name"
+                            name="last_name"
+                            [value]="userData.last_name"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="Last Name" [ss-form-element]="last_name">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="label-title">Email Address</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (email.touched && email.invalid) || (errorFlag && email.invalid) }">
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="Email Address"
+                            formControlName="email"
+                            name="email"
+                            [value]="userData.email"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="Email" [ss-form-element]="email">
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="form-group">
+                        <label class="label-title">Current Password</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (current_password.touched && current_password.invalid) || (errorFlag && current_password.invalid) }">
+                          <input
+                            class="form-control"
+                            type="password"
+                            placeholder="Current Password"
+                            formControlName="current_password"
+                            name="current_password"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="Current Password" [ss-form-element]="current_password">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="label-title">New Password</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (new_password.touched && new_password.invalid) || (errorFlag && new_password.invalid) }">
+                          <input
+                            class="form-control"
+                            type="password"
+                            placeholder="New Password (8+ characters )"
+                            formControlName="new_password"
+                            name="new_password"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="new_password" [ss-form-element]="new_password">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="label-title">Confirm Password</label>
+                        <div class="form-group"
+                          [ngClass]="{ 'has-error': (con_password.touched && con_password.invalid) || (errorFlag && con_password.invalid) }">
+                          <input
+                            class="form-control"
+                            type="password"
+                            placeholder="Confirm Password"
+                            formControlName="con_password"
+                            name="con_password"
+                          />
+                          <div [ss-form-errors]="formErrors" ss-form-error-name="con_password" [ss-form-element]="con_password">
+                          </div>
+                          <p class="errors"
+                          *ngIf="myAccoutForm.hasError('match_password') && myAccoutForm.controls['con_password'].valid">{{ 'resetPassword.confirmPasswordNotMatch' | translate }}</p>
+                        </div>
+                      </div>
+
+
+                      <div class="btn-center">
+                        <button type="button" class="btn btn-primary" (click)="saveMyAccount()">Save</button>
+                      </div>
+                    </form>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

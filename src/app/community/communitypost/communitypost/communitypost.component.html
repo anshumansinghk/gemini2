@@ -1,0 +1,121 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <div class="scroll-view">
+            <div class="term-condition">
+              <div>
+                <div class="title-center">
+                  <p *ngIf="postTopicdata?.title" class="community-detail">
+                    This week's discussion topic is : <span class="post-bold">{{ postTopicdata.title }}</span>
+                  </p>
+                </div>
+
+                <div class="detail-community">
+                  <div>
+                    <p class="mb-0" *ngIf="postTopicdata?.instruction">
+                      {{ postTopicdata.instruction }}
+                    </p>
+                  </div>
+                  <div>
+                    <i class="community-detail">Reminder: This community blog is for everyone's use, and it
+                      is important to be respectful. This is not the place to seek
+                      advice for your medical or mental health well-being. If you
+                      have a medical emergency, please call 911 or reach out to
+                      your healthcare provider.</i>
+                  </div>
+                </div>
+                <div class="btn-center py-3">
+                  <button type="submit" class="btn btn-primary" (click)="
+                      addthoughtpage(postTopicdata.id, postTopicdata.title)
+                    ">
+                    ADD YOUR THOUGHTS
+                  </button>
+                </div>
+                <div class="box-grid">
+                  <div class="card-box" *ngFor="let item of postdata">
+                    <div>
+                      <div class="name-time">
+                        <div>
+                          <img src="assets/images/logo.png" class="pro-icon" />
+                        </div>
+                        <div>
+                          <p class="name mb-0">
+                            {{ item.first_name }} {{ item.last_name }}
+                          </p>
+                          <p class="date-time mb-0">{{ item.created_at |durationUTC }}</p>
+                        </div>
+                      </div>
+                      <div class="py-3">
+                        <p *ngIf="item.title" class="title mb-1">
+                          {{ item.title }}
+                        </p>
+                        <p class="card-details mb-0">{{ item.text }}</p>
+                      </div>
+                      <div *ngIf="item.image" class="img-container">
+                        <img src="{{ item.image }}" class="post-images" />
+                      </div>
+                      <div class="name-time pb-2">
+                        <div>
+                          <img src="assets/images/icons/like-grey/like-grey.svg" class="like-unlike" />
+                          {{ item.likes }}
+                        </div>
+                        <div>
+                          <img src="assets/images/icons/comment/comment.svg" class="comment-icon" />
+                          {{ item.total_reply }}
+                        </div>
+                      </div>
+
+                      <div class="rply-section pt-2">
+                        <button class="name-time">
+                          <img *ngIf="item.is_like" src="assets/images/icons/like-green/like-green.svg"
+                            class="like-unlike" (click)="likeUnlike('unlike', item.post_id)" />
+                          <img *ngIf="!item.is_like" src="assets/images/icons/like-blue-border/like-blue.svg"
+                            class="like-unlike" (click)="likeUnlike('like', item.post_id)" />
+                          <span class="blue-text">Like</span>
+                        </button>
+                        <div class="name-time">
+                          <span *ngIf="(+item.total_reply) > 0 && !item.is_self_post" class="name-time"
+                            (click)="replyPage(item.post_id)">
+                            <img src="assets/images/icons/blue-icon-comment/comment.svg" class="comment-icon" />
+                            <div>
+                              <span class="blue-text">See replies</span>
+                            </div>
+                          </span>
+                        </div>
+                        <div class="btn-gap" *ngIf="item.is_self_post">
+                          <!-- *ngIf="!item.is_self_post" -->
+                          <button class="btn-edit-delet">
+                            <img src="assets/images/icons/edit/edit.svg" class="like-unlike" /><span class="blue-text"
+                              (click)="editPost(item.post_id, item.title)">Edit</span>
+                          </button>
+                          <!-- *ngIf="!item.is_self_post" -->
+                          <button class="btn-edit-delet">
+                            <img src="assets/images/icons/trash/trash.svg" class="like-unlike" /><span class="blue-text"
+                              (click)="deletePost(item.post_id)">Delete</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="btn-center">
+                        <button (click)="replyPage(item.post_id)" class="btn btn-secondary">
+                          <img src="assets/images/icons/reply.svg" class="reply-icon" />
+                          reply
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center py-2">
+                    <button class="back-btn" (click)="backStep()">Go back to the community homepage</button>
+                  </div>
+                  <span class="no-rply" *ngIf="!postdata">No replies yet</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

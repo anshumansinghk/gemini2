@@ -1,0 +1,58 @@
+.main-area {
+    .messages {
+        height: 80vh;
+        overflow-y: scroll;
+
+        .message {
+            margin: 10px 0;
+            display: flex;
+
+            .message-date {
+                font-size: 13px;
+                width: 100%;
+            }
+
+            .message-received {
+                width: 100%;
+
+                span {
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    background-color: #f0f0f0;
+                }
+            }
+
+            .message-sent {
+                display: block;
+                float: right;
+                width: 100%;
+
+                span {
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    background-color: #357b40;
+                    color: white;
+                    float: right;
+                }
+            }
+        }
+    }
+
+    .message-input-area {
+        background-color: #ffffff99;
+        border-radius: 15px;
+
+        textarea {
+            background-color: transparent;
+            border: none !important;
+            resize: none;
+        }
+
+        a {
+            color: white;
+            background-color: #6361615e;
+            padding: 6px;
+            border-radius: 50% !important;
+        }
+    }
+}

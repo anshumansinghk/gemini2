@@ -1,0 +1,9 @@
+<!--
+**************************************************************************
+*  Revision History:
+**************************************************************************
+-->
+<div style="position:relative; min-height:40px;">
+    <pagination *ngIf="resetFlag" [boundaryLinks]="boundaryLinks" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [disabled]="disabled" (pageChanged)="emitPageChange($event)" [maxSize]="maxSize" [nextText]="nextText" [previousText]="previousText"
+        [firstText]="firstText" [lastText]="lastText"></pagination>
+</div>

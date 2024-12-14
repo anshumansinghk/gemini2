@@ -1,0 +1,227 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <div class="scroll-view">
+            <div>
+              <div class="box-grid" *ngIf="!isTopicDetailPage && classes">
+                <div class="learning-data ">
+                  <h6 class="to-do">{{ classes.title }}</h6>
+                  <p class="mb-0">
+                    Please read all of the topics below to complete the activity
+                  </p>
+                  <p class="mb-0">{{ classes.overview }}</p>
+                </div>
+                <div class="card-box" *ngFor="let data of topics; let i = index" (click)="topicDetailPage(data.id)">
+                  <div class="class-title">
+                    <div class="text-start">
+                      <p class="mb-0 learning">Learning Topic{{ i + 1 }}</p>
+                      <h6 class="to-do">{{ data.title }}</h6>
+                    </div>
+                    <div class="unlike">
+                      <div *ngIf="data.is_completed">
+                        <img src="assets/images/icons/checkedblue.png" class="unlike-icon" />
+                      </div>
+                      <div *ngIf="!data.is_completed">
+                        <img src="assets/images/icons/checkedgray.png" class="unlike-icon" />
+                      </div>
+                      <img src="assets/images/icons/chevron-thin/chevron-thin.png" class="che-icon"
+                        (click)="topicDetailPage(data.id)" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isTopicDetailPage" class="small-ineer-container">
+                <div class="card-box-1">
+                  <div class="audio-video-section">
+                    <div> 
+                      <div>
+                        <div class="text-center">
+                          <h4 class="to-do mb-0">{{ header }}</h4>
+                        </div>
+                        <form [formGroup]="questionForm" class="box-grid" *ngIf="topicDetailPageDetail">
+                          <div class="asd" type="form" *ngFor="let data of topicDetailPageDetail; let i = index">
+                            <div *ngIf="data.type == 'IMAGE'">
+                              <div class="img-container">
+                                <img class="img-fluid post-images" src="{{ data.path }}" />
+                              </div>
+                            </div>
+                            <div *ngIf="data.type == 'AUDIO'" class="audio-main">
+                              <ss-vg-audio-video-player [source]="data.path" [autoplay]="false" [loop]="false"
+                                [scrubBar]="false" [audioTitle]="data.title" [resourceId]="data.id" [fileIndex]="i"
+                                class="scrubBar" [fileType]="'AUDIO'"></ss-vg-audio-video-player>
+                            </div>
+                            <div class="video-card" *ngIf="data.type == 'VIDEO'">
+                              <div *ngIf="!isYouTubeLink(data.path)">
+                                <ss-vg-audio-video-player [source]="data.path" [autoplay]="false" [loop]="false"
+                                  [scrubBar]="true" [audioTitle]="data.title" [resourceId]="data.id" [fileIndex]="i"
+                                  class="scrubBar" [fileType]="'VIDEO'"></ss-vg-audio-video-player>
+                                <div class="pt-3">
+                                  <p class="title-video mb-0 px-2">
+                                    Video testing macaw
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div *ngIf="isYouTubeLink(data.path)">
+                                <ss-vg-audio-video-player [videoId]="youbuteLink(data.path)" [playerVars]="playerVars"
+                                  [resourceId]="data.id" [fileIndex]="i"
+                                  [fileType]="'YOUTUBE'"></ss-vg-audio-video-player>
+                                <div class="pt-3">
+                                  <p class="title-video mb-0 px-2">
+                                    Video testing
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="data.type == 'TEXT'">
+                              <p class="card-details mb-0" [innerHTML]="data.text"></p>
+                            </div>
+                            <div *ngIf="data.type == 'WEBSITE'">
+                              
+                              <a [href]="data.path" target="_blank" class="web-link" >
+                                <img src="assets/images/icons/website.svg" class="web-img" />
+                              {{data.title}}
+
+                                <img src="assets/images/left-arrow/left-arrow-white.png" class="left-arrow-img" /></a>
+                            </div>
+                            <div  *ngIf="data.type == 'ARTICLE'">
+                              
+                              <a [href]="data.path" target="_blank" class="web-link" >
+                                <img src="assets/images/icons/file.svg" class="link-img" />
+                                {{data.title}}
+                                <img src="assets/images/left-arrow/left-arrow-white.png" class="left-arrow-img" />
+                              </a>
+                            </div>
+
+                            <div *ngIf="data.type == 'QUESTION'">
+                              <p class="card-details mb-0" [innerHTML]="data.text"></p>
+                              <div *ngIf="data.option_type === 'checkbox'">
+                                <h6 class="question-list">{{ data.question }}</h6>
+                                <div [formGroupName]="'checkbox_' + data.question_id">
+                                  <div class="option-grid">
+                                    <div *ngFor="let option of data.options; let idx = index" class="option-box">
+                                      <div [formGroupName]="idx" class="text-flex">
+                                        <div class="cust-checkbox">
+                                          <div>
+                                            <div class="new">
+                                              <div class="form-group">
+                                                <input type="checkbox" formControlName="response"
+                                                  id="checkbox_{{data.question_id}}_{{idx}}"
+                                                  (change)="onCheckboxChange('checkbox', data.question_id, idx, option.option_id,option.option_label|| option.other_option_label,$event,data?.options?.length)" />
+                                                <label for="checkbox_{{data.question_id}}_{{idx}}"></label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <h6 class="to-do mb-0">
+                                          {{ idx + 1 }}. {{ option.option_label || option.other_option_label }}
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                  <!-- Error Message -->
+                                  <div
+                                    *ngIf="questionForm.get('checkbox_' + data.question_id)?.invalid && questionForm.get('checkbox_' + data.question_id)?.touched"
+                                    class="error">
+                                    At least one option must be selected.
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
+
+                            <div *ngIf="data.option_type === 'radio'">
+                              <h6 class="question-list">{{ data.question }}</h6>
+                              <!-- FormArray containing FormGroups -->
+                              <div class="option-grid" [formGroupName]="'radio_' + data.question_id">
+                                <div *ngFor="let option of data.options; let idx = index" class="option-box">
+                                  <div [formGroupName]="idx" class="text-flex">
+                                    <div class="radio-field">
+                                      <input type="radio" formControlName="response"
+                                        [value]="option.option_label || option.other_option_label"
+                                        id="radio_{{data.question_id}}_{{idx}}"
+                                        (change)="onCheckboxChange('radio', data.question_id, idx, option.option_id,option.option_label|| option.other_option_label,$event,data.options)" />
+                                      <label for="radio_{{data.question_id}}_{{idx}}" class="to-do mb-0"></label>
+                                    </div>
+                                    <h6 class="to-do mb-0">{{ idx + 1 }}. {{ option.option_label ||
+                                      option.other_option_label }}</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                              <!-- Error Message -->
+                              <div
+                                *ngIf="questionForm.get('radio_' + data.question_id)?.invalid && questionForm.get('radio_' + data.question_id)?.touched"
+                                class="error">
+                                Please select an option.
+                              </div>
+                            </div>
+                            
+
+                            <div *ngIf="data.option_type === 'text'">
+                              <h6 class="question-list">{{ data.question }}</h6>
+                              <div formArrayName="text_{{ data.question_id }}">
+                                <div
+                                  *ngFor="let control of getFormArray('text_' + data.question_id)?.controls; let idx = index">
+                                  <div [formGroupName]="idx">
+
+                                    <input type="text" formControlName="response" placeholder="Type your answer here"
+                                      class="form-control" />
+                                  </div>
+                                  <!-- Error Message -->
+                                  <div *ngIf="control.invalid && control.touched" class="error">
+                                    This field is required.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div *ngIf="data.option_type === 'date'">
+                              <h6 class="question-list">{{ data.question }}</h6>
+                              <div formArrayName="date_{{ data.question_id }}">
+                                <div
+                                  *ngFor="let group of getFormArray('date_' + data.question_id)?.controls; let idx = index ">
+                                  <div [formGroupName]="idx">
+
+                                    <input type="date" formControlName="response" class="form-control"
+                                      (click)="onShowPicker($event)" />
+                                  </div>
+                                  <div *ngIf="group.get('response')?.invalid && group.get('response')?.touched"
+                                    class="error">
+                                    Please select a valid date.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="btn-grid">
+                            <div>
+                              <button (click)="onSubmit('save')" class="btn btn-secondary">
+                                yes! I'M Done with this topic
+                              </button>
+                            </div>
+                            <div (click)="onSubmit('progress')">
+                              <button class="btn btn-info">
+                                Not yet! save my progress
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

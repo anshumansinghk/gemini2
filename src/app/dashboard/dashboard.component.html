@@ -1,0 +1,203 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area" appTabTracker>
+          <ul class="nav nav-tabs tab-visible" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link active"
+                id="dashboard-tab"
+                data-bs-toggle="tab"
+                href="#dashboard" 
+                role="tab"
+                aria-controls="dashboard"
+                aria-selected="true"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="progress-tab"
+                data-bs-toggle="tab"
+                href="#progress"
+                role="tab"
+                aria-controls="progress"
+                aria-selected="false"
+                >Progress</a
+              >
+            </li>
+            <li class="nav-item" role="presentation" *ngIf="featureAccess.features?.enable_community">
+              <a
+                class="nav-link"
+                id="community-tab"
+                data-bs-toggle="tab"
+                href="#community"
+                role="tab"
+                aria-controls="community"
+                aria-selected="false"
+                >Community</a
+              >
+            </li>
+          </ul>
+
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active pt-3" id="dashboard" role="tabpanel"
+              aria-labelledby="dashboard-tab">
+            <div class="scroll-view">
+              <h1>Welcome Back, {{username}}!</h1>
+              <p class="py-3" *ngIf="currentClassDetails?.class_number">You are currently on <span class="color-primary">{{('substitute_class' | substitute)+' '+(currentClassDetails?.class_number??'') }}</span></p>
+              
+              <div id="scroll" class="scroll-wrap scroll-container" ssHorizontalViewScroll>
+                <div class="class-data">
+                  <div  *ngFor="let classInfo of classList" [ngClass]="classInfo.class_status != 'review' ? (classInfo.class_status === 'lock' ? 'disabled' : 'active'):''"
+                  [routerLink]="classInfo.class_status !== 'lock'?['/class/'+classInfo.class_id]:[]">
+                 <!-- <span>{{substituteClass}}</span>{{classInfo?.class_number}} -->
+                 <span *ngIf="classInfo?.class_number">{{ 'substitute_class' | substitute }}</span>{{classInfo?.class_number??''}}
+                </div>
+
+                </div>
+              </div>
+              <div class="box-grid">
+              <div class="card-box" *ngFor="let visitItem of todayVisits">
+                <div class="visit-block">
+                  <div class="visit-flex">
+                    <div>
+                      <img src="assets/images/group-visit.png" id="receiptImg">
+                    </div>
+                    <div>
+                        <span class="text-title">{{'virtualVisit.visitTitle' | translate}}</span>
+                        <div> 
+                            <span class="text-title virtual-title today-class">Today visit</span>
+                        </div>
+                        <h6 class="to-do">{{visitItem.class_title}}-{{visitItem.group_name}}</h6>
+                        <div class="date-sec">
+                          <p><span>Date : </span>{{visitItem.visit_date | date:"yyyy-MM- d"}}</p>
+                          <p><span>Time : </span>{{ (visitItem.visit_date+' '+visitItem.visit_time) |  date:"hh:mm a" }} {{visitItem.timezone}}</p>
+                          <p><span class="host">Host(s) : </span>{{visitItem.leaders || 'N/A'}}</p>
+                          <p><span>Participants : </span>{{visitItem.total_participants || 'N/A'}}</p>
+                          <p><span>URL : </span><a href="visitItem.teleconf_url" target="_blank">{{visitItem.teleconf_url || 'N/A'}}</a></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="btn-center">
+                    <button type="button" class="btn btn-primary" (click)="attendanceVisitdashboard(visitItem.group_visit_id,visitItem.teleconf_url)">
+                                  Join visit now
+                      </button>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="box-grid" *ngIf="currentClassDetails?.class_number">
+                <div class="to-do-card">
+                  <h6 class="to-do">To Do : Current {{ 'substitute_class' | substitute }}</h6>
+                </div>
+                <div class="card-box">
+                  <div class="class-title">
+                  <p class="mb-0">{{('substitute_class' | substitute)+' '+(currentClassDetails?.class_number??'') }}</p>
+                    <div>
+                       <circle-progress
+                        [percent]="progressPercent(currentClassDetails?.complete_status)"
+                        [radius]="10"
+                        [maxPercent]="100"
+                        [showTitle]="false"
+                        [showUnits]="false"
+                        [showSubtitle]="false"
+                        [showBackground]="false"
+                        [showInnerStroke]="true"
+                        [showInnerStroke]="true"
+                        [backgroundGradient]="false"
+                        [innerStrokeColor]="'#eaeaea'"
+                        [innerStrokeWidth]="5"
+                        [outerStrokeWidth]="5"
+                        [space]="-5"
+                      ></circle-progress>
+                    </div>
+                  </div>
+                  <h6 class="to-do">{{currentClassDetails?.title}}</h6>
+                  <span class="card-details">
+                    {{currentClassDetails?.description}}
+                  </span>
+                  <div class="btn-center">
+                    <button type="button" class="btn btn-secondary "
+                          routerLink="/class/{{currentClassDetails?.class_id}}">
+                          COMPLETE {{('substitute_class' | substitute)+' '+(currentClassDetails?.class_number??'') }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="box-grid" *ngIf="stillDo?.length">
+                <div class="to-do-card">
+                  <h6 class="to-do">Still to do : Previous {{ ('substitute_class' | substitute) | plural }}</h6>
+                </div>
+                <div class="card-box" *ngFor="let stillDoclassInfo of stillDo">
+                  <div class="class-title">
+                    <p class="mb-0">{{('substitute_class' | substitute)+' '+(stillDoclassInfo?.class_number??'') }}</p>
+
+                    <div>
+                      <circle-progress
+                        [percent]="progressPercent(stillDoclassInfo?.complete_status)"
+                        [radius]="10"
+                        [maxPercent]="100"
+                        [showTitle]="false"
+                        [showUnits]="false"
+                        [showSubtitle]="false"
+                        [showBackground]="false"
+                        [showInnerStroke]="true"
+                        [showInnerStroke]="true"
+                        [backgroundGradient]="false"
+                        [innerStrokeColor]="'#eaeaea'"
+                        [innerStrokeWidth]="5"
+                        [outerStrokeWidth]="5"
+                        [space]="-5"
+                      ></circle-progress>
+                    </div>
+                  </div>
+                  <h6 class="to-do">{{stillDoclassInfo?.title}}</h6>
+                  <span class="card-details">
+                      {{stillDoclassInfo?.description}}
+                  </span>
+                  <div class="btn-center">
+                    <button type="button" class="btn btn-outline-info "
+                              routerLink="/class/{{stillDoclassInfo?.class_id}}">
+                              GO TO {{('substitute_class' | substitute)+' '+(stillDoclassInfo?.class_number??'') }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <!-- progress -->
+            <div
+              class="tab-pane fade"
+              id="progress"
+              role="tabpanel"
+              aria-labelledby="progress-tab"
+            >
+              <div class="box-grid">
+                <div class="main-area-1">
+                  <ss-progresspage></ss-progresspage>
+                </div>
+              </div>
+            </div>
+
+            <!-- commmunity -->
+            <div
+              class="tab-pane fade"
+              id="community"
+              role="tabpanel"
+              aria-labelledby="community-tab"
+              *ngIf="featureAccess.features?.enable_community"
+            >
+              <ss-community></ss-community>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

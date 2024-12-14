@@ -1,0 +1,33 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+    <div class="container inner-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-area scroll-view">
+                    <div class="checkin-center">
+                        <h5 class="title-check-in mb-0">{{'checkin.general.title' | translate}}</h5>
+                    </div>
+					<div class="scroll-view">
+            			<div class="box-grid">
+                            <div class="card-box" *ngFor="let item of checkinList;">
+                    	       <div (click)="navigateCheckin(item)">
+                        	       <div class="checkin-flex">
+                                        <div>
+                                        <h6 class="to-do">{{item.title}}</h6>
+                                        <p class="mb-0 details-title">{{item.frequency}}</p>
+                                        <p class="mb-0 details">{{item.last_completed_at?"Last Completed "+(item.last_completed_at| date:"MMM d, y":"UTC"):'N/A'}} (<span>{{item.num_times_completed}}</span>)</p>
+                                    <!-- <p class="mb-0 details">  UTC: {{"2024-11-19 00:35:18" | date: 'short':'UTC' }} {{item.last_completed_at??'N/A'}}(<span>{{item.num_times_completed}}</span>)</p> -->
+                                        </div>
+                                        <div>
+                                        <i class="gm gm-chevron-thin"></i>
+    								    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

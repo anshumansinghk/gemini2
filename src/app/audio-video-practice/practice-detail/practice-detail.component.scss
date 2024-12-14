@@ -1,0 +1,57 @@
+.container.inner-container {
+    max-width: 991px;
+  }
+
+  .main-area {
+    display: block;
+    padding: 60px 20px 20px 20px;
+    @media (max-width: 991px) {
+      padding: 16px 0;
+    }
+  }
+  .title {
+    font-weight: 700;
+    color: #263e72;
+  }
+  .che-icon {
+    width: 9px;
+    height: 15px;
+    cursor: pointer;
+  }
+  .card-box-1 {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 60px;
+  }
+.title-video{
+  font-size: 16px;
+  font-weight: 700;
+  color: #263e72;
+}
+.videeo-title{
+  font-size: 14px;
+  color: #3a3737;
+}
+  .audio-main {
+    position: relative;
+    background: #263e72;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .video-card {
+    box-shadow: #00000029 0 1px 4px;
+    padding: 0px 0px 15px 0px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 95px;
+  }
+  .btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+  }
+ 
+  

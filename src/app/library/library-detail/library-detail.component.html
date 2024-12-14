@@ -1,0 +1,113 @@
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <div class="scroll-view">
+            <div class="card-box">
+              <div class="audio-video-section" *ngIf="libraryData.type == 'AUDIO'">
+                <div class="audio-main">
+                  <ss-vg-audio-video-player
+                    [source]="libraryData.url"
+                    [autoplay]="false"
+                    [loop]="false"
+                    [scrubBar]="false"
+                    [audioTitle]="libraryData.title"
+                    class="scrubBar"
+                    [fileIndex]="0"
+                    [resourceId]="libraryData.id"
+                    [fileType]="'AUDIO'"
+                  ></ss-vg-audio-video-player>
+                </div>
+              </div>
+              <div class="">
+                <div
+                  class="video-card"
+                  *ngIf="libraryData.type == 'VIDEO' && !isYouTubeUrl"
+                >
+                  <ss-vg-audio-video-player
+                    [source]="libraryData.url"
+                    [autoplay]="false"
+                    [loop]="false"
+                    [scrubBar]="true"
+                    [fileIndex]="0"
+                    [resourceId]="libraryData.id"
+                    [fileType]="'VIDEO'"
+                  ></ss-vg-audio-video-player>
+                  <div class="pt-3">
+                    <p class="title-video mb-0 px-2">Video testing macaw</p>
+                  </div>
+                </div>
+              </div>
+              <div class="">
+               <div class="video-card" *ngIf="isYouTubeUrl">
+                 <ss-vg-audio-video-player
+                   [videoId]="ytVideoId"
+                   [playerVars]="playerVars"
+                   [resourceId]="libraryData.id"
+                   [fileIndex]="0"
+                   [fileType]="'YOUTUBE'"
+                 ></ss-vg-audio-video-player>
+                 <div class="pt-3">
+                   <p class="title-video mb-0 px-2">{{ libraryData.title }}</p>
+                 </div>
+               </div>
+              </div>
+
+
+              <div class="" *ngIf="libraryData.type == 'goal_planning'">
+                <div>
+                <div class="box-grid">
+                  <div class="answer">
+                    These are instructions for how to complete this worksheet for goal planning with SMART. Your study coach has guided you through this process.
+                  </div>
+                  <div class="answer">
+                    Now lets get started to define a goal that you would like to help your child achieve that would improve his or her academic performance.
+                  </div>
+                </div>
+                <div class="box-grid pt-3">
+                  <div *ngFor="let que of libraryData.questions; let i=index;">
+                    <h6 class="title">
+                      {{ que.question }}
+                    </h6>
+                    <div class="answer">
+                      {{ que.response.content }}
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div  *ngIf="libraryData.type == 'homework_assignment'">
+                <div class="text-center">
+                  <h5 class="homework-title">HOMEWORK ASSIGNMENT</h5>
+                <div class="py-3 img-container">
+                  <img class="assignment-img" src="assets//images/homework.png" alt="">
+                </div>
+                </div>
+               <div class="box-grid">
+               <div class="pt-3">
+                <h6 class="answer"> Date: {{ libraryData.date | date: 'MMMM dd, yyyy' }}</h6>
+                <h6 class="answer"> Class#: {{ libraryData.session_number }}</h6>
+               </div>
+                <h6 class="answer">
+                  Below is a list of homework assignments I would like you to complete within the next couple of weeks. Remember, I will ask you about these assignments in our next session.
+                </h6>
+               </div>
+                <div class="answer" [innerHTML]="assignmentContent"></div>
+              </div>
+
+
+              <div class="btn-center mt-5" *ngIf="libraryData.type != 'homework_assignment' && libraryData.type != 'goal_planning'" >
+                <h6 class="details">Have you finished reading this topic?</h6>
+                <button type="button" class="btn btn-secondary btn-capital" (click)="done()">
+                  Yes! i'm done with this topic
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

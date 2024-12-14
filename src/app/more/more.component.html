@@ -1,0 +1,105 @@
+<!-- <h4> My Details & Settings </h4>
+
+<div>
+    <p>{{ userDetails?.first_name }}</p>
+    <br>
+    <p>My Profile</p>
+    <p>My accout details</p>
+</div>
+
+<h4>GEMINI Details</h4>
+
+<div>
+    <p routerLink="/more/contact-us">Contact us</p>
+    <p routerLink="/more/tearm-conditions">Tearm & Conditions</p>
+</div>
+
+<button (click)="logout()">Sigh out</button>
+<button >Contact US</button> -->
+
+
+<section class="wrapper">
+    <div class="container inner-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-area">
+                    <div class="scroll-view-form">
+                    <div>
+                        <div class="checkin-center">
+                            <h1 class="title-detail-setting">My Details & Settings</h1>
+                        </div>
+                        <div class="morecard-box mb-2">
+                            <div>
+                                <div class="card-heading">
+                                    <h6 class="title mb-0">{{ userDetails?.first_name }}</h6>
+                                    <p class="mb-0 details-title">My Profile</p>
+                                </div>
+                                <div class="checkin-flex line"  (click)="openTearmConditions()">
+                                    <div>
+                                        <h6 class="title mb-0">My account details</h6>
+                                    </div>
+                                    <div>
+                                        <i class="gm gm-chevron-thin"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="checkin-center pt-3">
+                            <h1 class="title-detail-setting">GEMINI details</h1>
+                        </div>
+                        <div class="morecard-box">
+                            <div>
+                                <div class="checkin-flex" routerLink="/more/contact-us">
+                                    <div>
+                                        <h6 class="title mb-0">Contact us</h6>
+                                    </div>
+                                    <div>
+                                        <i class="gm gm-chevron-thin"></i>
+                                    </div>
+                                </div>
+                                <div class="checkin-flex line" routerLink="/more/tearm-conditions">
+                                    <div>
+                                        <h6 class="title mb-0">Terms & Conditions</h6>
+                                    </div>
+                                    <div>
+                                        <i class="gm gm-chevron-thin"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="mt-3">
+                        <div class="morecard-box" (click)="logout()">
+                            <div>
+                                <div class="checkin-flex">
+                                    <div>
+                                        <h6 class="title mb-0" >Sign out</h6>
+                                    </div>
+                                    <div>
+                                        <img
+                                        src="assets/images/logout.svg"
+                                        class="sort-icon">
+                                    </div>
+                                </div>
+                              
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<button (click)="logout()">Log out</button>
+<button routerLink="/more/contact-us">Contact US</button>

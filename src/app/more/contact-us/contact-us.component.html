@@ -1,0 +1,190 @@
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row" *ngIf="!formSubmitFlag">
+      <div class="col-12">
+        <div class="main-area">
+          <ss-loading [show]="loading"></ss-loading>
+			 <div class="scroll-view-form">
+          <section class="main-area">
+            <div class="container">
+              <div class="row">
+                <span class="primary-text my-2 contact-main label-title">{{
+                  "contactUs.note" | translate
+                }}</span>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-container">
+                    <form
+                      class="form-horizontal contact-wrapper"
+                      [formGroup]="contactUsForm"
+                      role="form"
+                    >
+                      <div class="form-group">
+                        <label class="label-title"
+                          >{{ "contactUs.fullName" | translate
+                          }}<span class="text-danger">*</span></label
+                        >
+                        <div
+                          class="form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (name.touched && name.invalid) ||
+                              (errorFlag && name.invalid)
+                          }"
+                        >
+                          <input
+                            class="form-control"
+                            type="text"
+                            placeholder="{{
+                              'contactUs.placeholder.fullName' | translate
+                            }}"
+                            formControlName="name"
+                            name="name"
+                          />
+                          <div
+                            [ss-form-errors]="formErrors"
+                            ss-form-error-name="Full Name"
+                            [ss-form-element]="name"
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="form-group">
+                          <label class="label-title"
+                            >{{ "contactUs.emailAddress" | translate
+                            }}<span class="text-danger">*</span></label
+                          >
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (email.touched && email.invalid) ||
+                                (errorFlag && email.invalid)
+                            }"
+                          >
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="{{
+                                'contactUs.placeholder.emailAddress' | translate
+                              }}"
+                              formControlName="email"
+                              name="email"
+                            />
+                            <div
+                              [ss-form-errors]="formErrors"
+                              ss-form-error-name="Email Address"
+                              [ss-form-element]="email"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="form-group">
+                          <label class="label-title"
+                            >{{ "contactUs.phoneNumber" | translate
+                            }}<span class="text-danger">*</span></label
+                          >
+                          <div
+                            class="form-group"
+                            [ngClass]="{
+                              'has-error':
+                                (phone_number.touched &&
+                                  phone_number.invalid) ||
+                                (errorFlag && phone_number.invalid)
+                            }"
+                          >
+                            <input
+                              class="form-control"
+                              type="text"
+                              placeholder="{{
+                                'contactUs.placeholder.phoneNumber' | translate
+                              }}"
+                              formControlName="phone_number"
+                              name="phone_number"
+                            />
+                            <div
+                              [ss-form-errors]="formErrors"
+                              ss-form-error-name="Phone Number"
+                              [ss-form-element]="phone_number"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="text-area mt-1">
+                        <div class="form-group mb-1">
+                          <label class="label-title"
+                            >{{ "contactUs.yourMessage" | translate
+                            }}<span class="text-danger">*</span></label
+                          >
+                        </div>
+                        <div
+                          class="col-sm-12 form-group"
+                          [ngClass]="{
+                            'has-error':
+                              (message.touched && message.invalid) ||
+                              (errorFlag && message.invalid)
+                          }"
+                        >
+                          <textarea
+                            class="form-control"
+                            placeholder="{{
+                              'contactUs.placeholder.yourMessage' | translate
+                            }}"
+                            formControlName="message"
+                            rows="5"
+                          ></textarea>
+                          <div
+                            [ss-form-errors]="formErrors"
+                            ss-form-error-name="message"
+                            [ss-form-element]="message"
+                          ></div>
+                        </div>
+                      </div>
+                      <div class="btn-center">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          (click)="contactUs()"
+                        >
+                          {{ "contactUs.sendMessage" | translate }}
+                        </button>
+                      </div>
+                      <button routerLink="/more" class="cancel-btn">
+                        cancel
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-area thanks-container" *ngIf="formSubmitFlag" >
+      <div class="row">
+        <div class="col-12">
+          <div class="thankyou-section">
+              <div class="thanks-img">
+                <img src="/assets/images/icons/fav-like/fav-like.png" />
+              </div>
+              <div class="text-center">
+                <h4 class="title">Thank you for your message</h4>
+                <h6 class="sub-title">Someone will get back to your query shortly,</h6>
+              </div>
+              <div>
+                <button class="btn btn-primary" (click)="GoToDashboard()">GO BACK TO YOUR HOME PAGE</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

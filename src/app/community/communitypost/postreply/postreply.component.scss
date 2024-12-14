@@ -1,0 +1,121 @@
+.container.inner-container {
+  max-width: 991px;
+}
+.details {
+  font-size: 17px;
+  line-height: 1.6;
+}
+.url-highlight {
+  color: #263e72;
+}
+.main-area {
+  display: block;
+  padding: 60px 20px 20px 20px;
+  @media (max-width: 991px) {
+    padding: 16px 0;
+  }
+}
+// .term-condition {
+//   padding-bottom: 5rem;
+// }
+.title-center {
+  display: flex;
+  justify-content: center;
+}
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+}
+.community-detail {
+  font-size: 14px;
+}
+.name-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: none;
+}
+.name {
+  color: #357b40;
+  font-weight: 500;
+  font-size: 15px;
+}
+.date-time {
+  font-size: 11px;
+}
+
+.title {
+  font-weight: 700;
+  color: #263e72;
+  margin-bottom: 0px;
+}
+.rply-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eaeaea;
+}
+.like-unlike {
+  width: 13px;
+}
+.rply-icon {
+  width: 18px;
+}
+.comment-icon {
+  width: 15px;
+}
+.blue-text {
+  font-size: 14px;
+  color: #263e72;
+  font-weight: 600;
+}
+.no-rply {
+  font-size: 14px;
+  color: #8e8e8f;
+  // font-weight: 600;
+}
+.pro-icon {
+  width: 33px;
+  height: 33px;
+}
+.relative {
+  position: relative;
+}
+.send-icon {
+  position: absolute;
+  top: 20px;
+  right: 17px;
+  color: #7c7b7b;
+}
+.post-image {
+  width: 100%;
+}
+.btn-edit-delet {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-gap {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+.comment-num{
+  font-size: 12px;
+  color: #7c7b7b;
+  font-weight: 500;
+}
+.CancelReply {
+  float: right;
+  border: 0;
+  background: transparent;
+  color: #263e72;
+  font-weight: 700;
+  padding: 10px 0;
+}

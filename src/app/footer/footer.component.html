@@ -1,0 +1,82 @@
+<section [ngSwitch]="footerConfig?.type" *ngIf="footerShowFlag">
+   <footer *ngSwitchCase="'default'" class="footer-bottom" > 
+      <div class="container-fluid">
+         <div class="bottom-nav-wrapper">
+            <!-- defualt footer -->
+            <nav  class="bottom-nav">
+               <div class="bottom-nav-item " [ngClass]="{active: tabActiveFlag == 'HOME'}">
+                  <a routerLink="/dashboard" (click)="setHeader('HOME','USER_NAME')">
+                     <div class="bottom-nav-link">
+                        <i class="if gm-mood-blue"></i><span class="text-uppercase">{{ 'footer.home' | translate}}</span>
+                     </div>
+                  </a>
+               </div>
+               <div class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'CLASS'}">
+                  <a routerLink="/class" (click)="setHeader('CLASS')">
+                     <div class="bottom-nav-link">
+                        <i class="gm gm-course"></i><span class="text-uppercase">{{ access?.features?.substitute_class??'class' | plural}}</span> 
+                     </div>
+                  </a>
+               </div>
+
+               <div *ngIf="access.features?.enable_check_in_button">
+                  <div *ngIf="!access.features?.enable_health_check_in; else healthCheckin" class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'CHECKIN'}">
+                     <a routerLink="/checkin" (click)="setHeader('CHECKIN')">
+                        <div class="bottom-nav-link">
+                           <i class="if gm-check-in-list"></i><span class="text-uppercase">{{ 'footer.checkin' | translate}}</span>
+                        </div>
+                     </a>
+                  </div>
+
+                  <ng-template #healthCheckin>
+                     <div class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'CHECKIN'}">
+                        <a routerLink="/checkin/health" (click)="setHeader('CHECKIN')">
+                           <div class="bottom-nav-link">
+                              <i class="health-checkin-add gm-add asd"></i>
+                              <span class="text-uppercase">{{ 'footer.checkin' | translate}}</span>
+
+                           </div>
+                        </a>
+                     </div>
+                  </ng-template>
+               </div>
+
+               <div class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'LIBRARY'}">
+                  <a routerLink="/library" (click)="setHeader('LIBRARY','Library')">
+                     <div class="bottom-nav-link">
+                        <i class="lf gm-library-blue"></i><span class="text-uppercase">{{ 'footer.library' | translate}}</span>
+                     </div>
+                  </a>
+               </div>
+
+               <div class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'MORE'}">
+                  <a routerLink="/more" (click)="setHeader('MORE','More')">
+                     <div class="bottom-nav-link">
+                        <i class="if gm-dots-blue"></i><span class="text-uppercase">{{ 'footer.more' | translate}}</span>
+                     </div>
+                  </a>
+               </div>
+            </nav>
+         </div>
+      </div>
+   </footer>
+
+   <!-- close footer -->
+   <footer *ngSwitchCase="'close'" class="footer-bottom-close" > 
+      <div class="container-fluid">
+         <div class="bottom-nav-wrapper">
+            <nav class="bottom-nav">
+               <div *ngIf="access.features?.enable_check_in_button">
+                  <div class="bottom-nav-item" [ngClass]="{active: tabActiveFlag == 'CHECKIN'}">
+                     <a (click)="setHeader('CHECKIN'); backArrow(footerConfig?.back)">
+                        <div class="bottom-nav-link">
+                           <i class="health-checkin-add gm-add rotate-icon"></i>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </div>
+   </footer>
+</section>

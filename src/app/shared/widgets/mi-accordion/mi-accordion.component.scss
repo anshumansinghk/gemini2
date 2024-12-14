@@ -1,0 +1,70 @@
+h3 {
+	cursor: pointer;
+	position: relative;
+	padding: 1.3em 1em;
+	font-size: 18px;
+	margin: 0 0 20px 0;
+	background-color: #fff;
+	box-shadow: 0px 0px 4px #e4e4e4;
+	-webkit-box-shadow: 0px 0px 4px #e4e4e4;
+	-moz-box-shadow: 0px 0px 4px #e4e4e4;
+	border-radius: 4px;
+
+    /* Define the style rules for the 'arrow icons' */
+    span {
+		position: absolute;
+		right: 1em;
+		top: 1.45em;
+		font-size: 17px;
+		color: #6eb43f;
+		font-weight: bold;
+	}
+	span.open{
+		transform: rotate(90deg);
+	}
+}
+
+ /* Here we define the actual 'menu' and its 'options' */
+ .image-wrapper {
+	margin: 0 auto 2em auto;
+	width: 20%;
+
+    img {
+		display: block;
+		margin: auto;
+    }
+ }
+
+
+ p {
+    font-size: 16px;
+    color: #6eb43f;
+ }
+
+
+ .toggle-list {
+    position: relative;
+    padding: 0;
+    margin-top: -18px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+
+    ul{
+        padding:0 ;
+        list-style: none;
+    }
+    li{
+		padding: 20px;
+		border-radius: 4px;
+		margin-bottom: 2px;
+		background-color: #fff;
+		box-shadow: 0px 0px 3px #e4e4e4;
+		-webkit-box-shadow: 0px 0px 3px #e4e4e4;
+		-moz-box-shadow: 0px 0px 3px #e4e4e4;
+		
+	}
+	li a {
+		color: #4a822a;
+		text-decoration: none;
+	}
+}

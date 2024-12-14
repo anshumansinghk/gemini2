@@ -1,0 +1,99 @@
+// Dashboard
+.container.inner-container {
+  max-width: 991px;
+}
+
+.main-area ul.nav.nav-tabs {
+  display: flex;
+  width: 65%;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 14px;
+  border: 1px solid green;
+  border-radius: 26px;
+}
+
+.main-area {
+  display: block;
+  padding: 20px;
+
+  @media (max-width: 991px) {
+    padding: 16px 0;
+  }
+}
+
+.card-box {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  min-height: 95px;
+}
+.video-card {
+  box-shadow: #00000029 0 1px 4px;
+  padding: 0px 0px 15px 0px;
+  background-color: #fff;
+  border-radius: 10px;
+  min-height: 95px;
+}
+.btn-style {
+  background-color: #ceecff;
+}
+
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-capital {
+  text-transform: uppercase;
+}
+
+.details {
+  color: #000;
+  font-size: 12px;
+}
+
+.audio-video-section {
+  padding: 45px 0px 0px 0px;
+}
+
+.audio-main {
+  position: relative;
+  background: #263e72;
+  padding: 5px;
+  border-radius: 10px;
+}
+.title-video {
+  font-size: 16px;
+  font-weight: 700;
+  color: #263e72;
+}
+.title {
+ font-size: 15px;
+}
+.answer {
+  font-size: 15px;
+  color: #242323;
+}
+.box-grid {
+  gap: 25px;
+}
+.homework-title {
+  font-weight: 600;
+  font-size: 21px;
+  color: #2e2e2e;
+  letter-spacing: 1px;
+}
+.assignment-img {
+  object-fit: contain;
+  width: 200px;
+  height: 200px;
+}

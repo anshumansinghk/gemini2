@@ -1,0 +1,78 @@
+
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+     <div class="row">
+        <div class="col-12">
+           <div class="main-area">
+              <div class="scroll-view">
+                 <div class="small-ineer-container">
+                    <div class="card-box-1" *ngIf="contentDetails">
+                       <div class="audio-video-section">
+                              <div class="box-grid">
+                                <div class="text-center">
+                                  <h5 class="title"> {{ contentDetails.title }} </h5>
+                                  <h6 class="videeo-title"> {{ contentDetails.description }} </h6>
+                                  <h6 class="videeo-title"> {{ contentDetails.instruction }} </h6>
+                                </div>
+                               
+                            
+                                <div  *ngFor="let file of files; let i=index;">
+                                  <div  *ngIf="file.type == 'AUDIO'"   class="audio-main">
+                                      <ss-vg-audio-video-player
+                                          *ngIf="file.url"
+                                          [source]="file.url"
+                                          [autoplay]="false"
+                                          [loop]="false"
+                                          [scrubBar]="false"
+                                          [audioTitle]="file.title"
+                                          class="scrubBar"
+                                          [fileIndex]="i"
+                                          [resourceId]="file.resource_id"
+                                          [fileType]="'AUDIO'"
+                                          [classPracticeId] = "file.class_practice_id"
+                                      ></ss-vg-audio-video-player>
+                                  </div>
+                                  <div class="video-card" *ngIf="file.type == 'VIDEO' && !file.isYouTubeUrl">
+                                      <ss-vg-audio-video-player
+                                      *ngIf="file.url"
+                                      [source]="file.url"
+                                      [autoplay]="false"
+                                      [loop]="false"
+                                      [scrubBar]="true"
+                                      [fileIndex]="i"
+                                      [resourceId]="file.resource_id"
+                                      [fileType]="'VIDEO'"
+                                      [classPracticeId] = "file.class_practice_id"
+                                    ></ss-vg-audio-video-player>
+                                    <div class="pt-3">
+                                      <p class="title-video mb-0 px-2">{{ file.title }}</p>
+                                    </div>
+                                  </div>
+                                  <div class="video-card" *ngIf="file.isYouTubeUrl">
+                                      <ss-vg-audio-video-player
+                                        [videoId]="file.ytVideoId"
+                                        [playerVars]="playerVars"
+                                        [resourceId]="file.resource_id"
+                                        [fileIndex]="i"
+                                        [fileType]="'YOUTUBE'"
+                                        [classPracticeId] = "file.class_practice_id"
+                                      ></ss-vg-audio-video-player>
+                                      <div class="pt-3">
+                                        <p class="title-video mb-0 px-2">{{ file.title }}</p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                 </div>
+              <div class="btn-center">
+                  <button (click)="done()" class="btn btn-primary"> I'M DONE WITH THIS PRACTICE</button>
+              </div>
+           </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</section>

@@ -1,0 +1,234 @@
+<ss-loading [show]="loading"></ss-loading>
+<section class="wrapper">
+  <div class="container inner-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="main-area">
+          <div class="scroll-view">
+            <div>
+              <ss-loading [show]="loading"></ss-loading>
+              <div *ngIf="stepOne">
+                <div class="text-center">
+                  <h4 class="title py-3 mb-3">Your written practice worksheets</h4>
+                </div>
+                <div class="box-grid">
+                  <div *ngFor="let data of practices">
+                    <div class="card-box" (click)="getWrittenPracticeQuestion(data.class_written_practice_id)">
+                      <div class="class-title">
+                        <div class="text-start">
+                          <h6 class="title">{{data.title}}</h6>
+                          <div>
+                            <p class="mb-0 card-details">
+                              <span *ngIf="data.completed_at">Completed {{data.completed_at| date}} </span>
+
+                              <span class="mb-0">({{data.target_completed}}/{{data.target_number}})</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="unlike">
+                          <img src="assets/images/icons/chevron-thin/chevron-thin.png" class="che-icon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-box border-0" *ngIf="stepTwo">
+                <div class="box-grid ">
+                  <div class="text-center">
+                    <h4 class="title">{{WrittenPractice.title}}</h4>
+                  </div>
+                  <div class="box-grid" *ngFor="let data of writtenTopic let i = index">
+                    <div *ngIf="data.image && data.image.type=='IMAGE'">
+                      <div class="img-container">
+                        <img src="{{data.image.path}}" class="post-images">
+                      </div>
+                      <p class="title-video mb-0 px-3">{{data.image.title}}</p>
+
+                    </div>
+                    <div *ngIf="data.text && data.text.type=='TEXT'">
+                      <p class="card-details mb-0" [innerHTML]="data.text.text"></p>
+                    </div>
+
+                    
+
+                    <div *ngIf="data.resource && data.resource.type=='WEBSITE'">
+                      <!-- <img src="assets/images/icons/link.svg" class="web-img" />
+                      <a [href]="data.resource.path" class="web-link" target="_blank">{{data.resource.title}}</a> -->
+
+                       <a [href]="data.resource.path" target="_blank" class="web-link" >
+                        <img src="assets/images/icons/website.svg" class="web-img" />
+                        {{data.resource.title}}
+                        <img src="assets/images/left-arrow/left-arrow-white.png" class="left-arrow-img" />
+                        </a>
+                    </div>
+
+                    <div class="link-icon " *ngIf="data.resource && data.resource.type=='ARTICLE'">
+                      <!-- <img src="assets/images/article.png" class="link-img" />
+                      <a [href]="data.resource.path" target="_blank" class="link-text">{{data.resource.title}}</a> -->
+
+                      <a [href]="data.resource.path" target="_blank" class="web-link" >
+                        <img src="assets/images/icons/file.svg" class="link-img" />
+                        {{data.resource.title}}
+                        <img src="assets/images/left-arrow/left-arrow-white.png" class="left-arrow-img" />
+                        </a>
+                    </div>
+                    <div *ngIf="data.resource && data.resource.type=='AUDIO'">
+                      <!-- <ss-vg-audio-player [audioSource]="data.resource.path" [autoplay]="false" [loop]="false" [scrubBar]="false"
+                                [audioTitle]="data.resource.title" class="scrubBar"></ss-vg-audio-player> -->
+                      <div class="audio-main">
+                        <ss-vg-audio-video-player [source]="data.resource.path" [autoplay]="false" [loop]="false"
+                          [scrubBar]="false" [audioTitle]="data.resource.title" [resourceId]="data.resource.id"
+                          [fileIndex]="i" class="scrubBar" [fileType]="'AUDIO'"></ss-vg-audio-video-player>
+                      </div>
+                      <!-- <div class="pt-3">
+                            <p class="title-video mb-0 px-3">{{data.resource.title}}</p>
+                           </div> -->
+
+                    </div>
+                    <div *ngIf="data.resource && data.resource.type=='VIDEO'">
+                      <div class="video-card" *ngIf="!isYouTubeLink(data.resource.path)">
+
+                        <ss-vg-audio-video-player [source]="data.resource.path" [autoplay]="false" [loop]="false"
+                          [scrubBar]="true" [fileIndex]="i" [resourceId]="data.resource.id"
+                          [fileType]="'VIDEO'"></ss-vg-audio-video-player>
+                        <div class="pt-3">
+                          <p class="title-video mb-0 px-3">{{data.resource.title}}</p>
+                        </div>
+
+                      </div>
+
+                      <div class="video-card" *ngIf="isYouTubeLink(data.resource.path)">
+
+                        <ss-vg-audio-video-player [videoId]="youbuteLink(data.resource.path)" [playerVars]="playerVars"
+                          [resourceId]="data.resource.id" [fileIndex]="i"
+                          [fileType]="'YOUTUBE'"></ss-vg-audio-video-player>
+                        <div class="pt-3">
+                          <p class="title-video mb-0 px-3">{{data.resource.title}}</p>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <form [formGroup]="questionForm">
+                    <div *ngFor="let question of writtenQuestion; let i = index">
+                      <div>
+                        <h6 class="title py-2 mb-0">{{ question.question }}</h6>
+
+                        <!-- Checkbox Section -->
+                        <div *ngIf="question.type === 'checkbox'" formArrayName="checkbox_{{ question.question_id }}">
+                          <div *ngFor="let option of question.options; let j = index" class="option-grid">
+                            <div class="option-box" [formGroupName]="j">
+                              <div class="cust-checkbox">
+                                <div class="text-flex">
+                                  <div class="form-group">
+                                    <input type="checkbox" formControlName="response"
+                                      id="checkbox_{{option.option_id}}_{{j}}"
+                                      [value]="option.option_label || option.other_option_label"
+                                      (change)="onCheckboxChange('checkbox', question.question_id, j, option.option_id,option.option_label|| option.other_option_label,$event,question?.options?.length)" />
+                                    <label class="customcheck title"
+                                      for="checkbox_{{ question.question_id }}_{{ j }}"></label>
+                                  </div>
+                                  <div class="option-grid">
+                                    <h6 class="mb-0 title">{{ option.option_label || option.other_option_label }}</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="error-text"
+                            *ngIf="questionForm.get('checkbox_' + question.question_id)?.invalid && questionForm.get('checkbox_' + question.question_id)?.touched">
+                            At least one checkbox must be selected.
+                          </div>
+                        </div>
+
+                        <!-- Radio Section -->
+                        <div class="option-grid">
+                          <div *ngIf="question.type === 'radio'" formArrayName="radio_{{ question.question_id }}"
+                            class="option-box">
+                            <div class="text-flex" *ngFor="let option of question.options; let j = index">
+                              <div class="radio-field"  [formGroupName]="j">
+                                    <input type="radio" formControlName="response"
+                                      [value]="option.option_label || option.other_option_label"
+                                      id="radio_{{ question.question_id }}_{{ j }}"
+                                      (change)="onCheckboxChange('radio', question.question_id, j, option.option_id,option.option_label|| option.other_option_label,$event,question.options)" />
+                                    <label aria-label="hidden"></label>
+                              </div>
+                              <h6 class="title mb-0">{{ option.option_label }}{{ option.other_option_label }}</h6>
+                            </div>
+                            <div class="error-text"
+                              *ngIf="questionForm.get('radio_' + question.question_id)?.invalid && questionForm.get('radio_' + question.question_id)?.touched">
+                              Please select an option.
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Text Section -->
+                        <div *ngIf="question.type === 'text'" formArrayName="text_{{ question.question_id }}">
+                          <div *ngFor="let res of question.options; let j = index" class="form-group">
+                            <div [formGroupName]="j">
+                              <textarea formControlName="response" class="form-control field" rows="1"
+                                placeholder="Please type your answer here.">
+                            </textarea>
+                            </div>
+                          </div>
+                          <div class="error-text"
+                            *ngIf="questionForm.get('text_' + question.question_id)?.invalid && questionForm.get('text_' + question.question_id)?.touched">
+                            Please provide a valid response.
+                          </div>
+                        </div>
+
+                        <!-- Date Section -->
+                        <div *ngIf="question.type === 'date'" formArrayName="date_{{ question.question_id }}">
+                          <div *ngFor="let res of question.options; let j = index " class="form-group">
+                            <div [formGroupName]="j">
+                              <input formControlName="response" type="date" class="form-control"
+                                placeholder="Select a date." (click)="onShowPicker($event)" />
+                            </div>
+                          </div>
+                          <div class="error-text"
+                            *ngIf="questionForm.get('date_' + question.question_id)?.invalid && questionForm.get('date_' + question.question_id)?.touched">
+                            Please select a valid date.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="btn-grid pt-3" *ngIf="writtenQuestion.length">
+                      <div>
+                        <button type="submit" class="btn btn-primary" (click)="onSubmit('submit')">
+                          Submit
+                        </button>
+                      </div>
+                      <div>
+                        <button type="button" class="btn btn-info" (click)="onSubmit('progress')">
+                          Save My Progress
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  <div class="btn-grid" *ngIf="!writtenQuestion.length">
+                    <div>
+                      <button type="submit" class="btn btn-primary" (click)="submitWithoutQuestion('submit')">
+                        Submit
+                      </button>
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-info" (click)="submitWithoutQuestion('progress')">
+                        Save my Progress
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

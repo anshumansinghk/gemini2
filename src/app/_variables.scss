@@ -1,0 +1,30 @@
+/*******************************************************************************
+ * 
+********************************************************************************/
+
+$font: 'Droid Sans',
+sans-serif;
+$fontSize: 15px;
+$priTextColor: #000000;
+$secTextColor: #505251;
+$darkBlue: #003b71;
+$fadedBlue: #0e8cbf;
+$brandColor: #13a0db;
+$secColor: #e5e3e3;
+$white: #fff;
+$criticalRed: rgba(255, 0, 0, 0.8);
+$criticalRedBg: rgba(255, 0, 0, 0.2);
+// breakpoints
+$break-small: 480px;
+$break-medium: 720px;
+$break-large: 1024px;
+$break-exta-large: 1200px;
+$lightestGray: #e5e3e3;
+$faintGray: #fcfcfc;
+$commonBlue: #13a0db;
+$errorRed: #ed2024;
+$errorBg: #f1dedd;
+$successGreen: #538240;
+$successBg: #deeed8;
+$blueBottomBorder: 5px solid $commonBlue;
+$fa-font-path: '../node_modules/font-awesome/fonts';

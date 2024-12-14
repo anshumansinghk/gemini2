@@ -1,0 +1,37 @@
+<!----------------------------------------------------------------------
+------------------------------------------------------------------------>
+
+<div style="position:relative;">
+    <div [ngClass]="{'input-group': decorated}">
+        <input type="text" [style.background-color]="config?.highlightField ? config?.backgroundColor: ''"
+               [style.border-color]="config?.borderColor" (dblclick)="domEventEmitter($event)"
+               (blur)="domEventEmitter($event); uiChange($any($event).target.value)" (mouseover)="domEventEmitter($event)" name="{{name}}"
+               class="form-control text-right" [required]="isRequired" [(ngModel)]="displayValue"
+               [disabled]="isDisabled" (keypress)="validate($event);"
+               (input)="this.onChange($any($event).target.value);" />
+
+        <div *ngIf="decorated" [ngClass]="{'clickable':currencyDrop}" class="input-group-addon noSelect"
+             (click)="clickCurrency()">{{tagDisplay}}</div>
+    </div>
+    <div class="text-success text-right small rightPad">{{subTextValue}}</div>
+    <div *ngIf="dropped" id="dropdown-basic" class="dropdown-container">
+        <input *ngIf="searchBox==true && currenciesFiltered != null;" placeholder=" {{ 'search' | translate }}"
+               [formControl]="searchField" />
+        <i *ngIf="searchBox==true && currenciesFiltered != null;" class="fas fa-search icon"></i>
+        <ul class="dropdown-menu">
+            <li role="menuitem">
+                <a class="dropdown-item noSelect "
+                   *ngIf="currenciesFiltered == null"><i>Loading...</i></a>
+            </li>
+            <ng-template ngFor let-row [ngForOf]="currenciesFiltered" let-i="index">
+                <li role="menuitem">
+                    <a class="dropdown-item noSelect clickable"
+                       (click)="this.setCurrency(row.value);this.emitCurrency.emit(row.value);">
+                        {{row.value}}
+                        - {{row.label}}
+                    </a>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+</div>

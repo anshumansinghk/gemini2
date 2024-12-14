@@ -1,0 +1,37 @@
+﻿{
+    "organization": {
+        "name": "servicengine",
+        "active": "Active",
+        "formName": "TF Sample_Form_110416 (active)",
+        "address1": "10 main st.",
+        "address2": "",
+        "city": "Seymour",
+        "state": "CT",
+        "postalcode": "04356483",
+        "pfdphone": "0",
+        "email": "a@a45345.com",
+        "referencenumber": "011035100001101001"
+    },
+    "client": {
+        "name": "TF Test",
+        "address1": "10 Main St.",
+        "address2": "",
+        "city": "Shelton",
+        "state": "CT",
+        "postalCode": "06484",
+        "phone": "1243531231234",
+        "fax": "4324435324321",
+        "fileNumber": "90846-00002"
+    },
+    "destination": {
+        "name": "Global Company",
+        "address1": "123 fake st.",
+        "address2": "",
+        "city": "Schenectady",
+        "state": "NY",
+        "postalcode": "12345",
+        "phone": "12312431234",
+        "fax": "4324324435321",
+        "email": "supporjdsft@servicengine.com"
+    }
+}
